@@ -1,0 +1,11 @@
+{
+  "hours": "hours ago",
+  "minutes": "minutes ago",
+  "allHasRead": "Mark all as read",
+  "deleteHasRead": "Delete all read messages",
+  "cancel": "Cancel",
+  "just": "Just now",
+  "clickLoad":"Pull to load more",
+  "reload":"Pull to refresh",
+  "loadOver":"All loaded"
+}

@@ -1,0 +1,11 @@
+{
+    "hours":"小时前",
+    "minutes":"分钟前",
+    "allHasRead":"全部标记已读",
+    "deleteHasRead":"删除已读消息",
+    "cancel":"取消",
+    "just":"刚刚",
+    "clickLoad":"加载更多",
+    "reload":"点击重新加载",
+    "loadOver":"加载完毕"
+}
