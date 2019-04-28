@@ -120,7 +120,23 @@ class OtherScreen extends BaseScreen {
         } else if(type === '1') {
             this.toScreen('BecarefulInfo', { id: get(data, 'id', 0) });
         }else if(type === '3'){
-            this.toScreen('GameList')
+           // this.toScreen('GameList')
+           let param = new URLSearchParams()
+            param.append('id', get(data, 'gameId', ''))
+            getGameInfo(param).then((res) => {
+                let data = get(res, 'data');
+                let rspCode = get(data, 'rspCode');
+                if (rspCode === '000000') {
+                    this.game = data;
+                    this.loading = '';
+                    this.toScreen('GameInfo', {
+                         ispart:0,
+                    });
+                } else {
+                    toastRequestError(data);
+                    this.loading = '';
+                }
+            }).catch();
         }
     }
 
