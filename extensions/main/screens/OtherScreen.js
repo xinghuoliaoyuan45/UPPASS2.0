@@ -139,6 +139,64 @@ class OtherScreen extends BaseScreen {
             }).catch();
         }
     }
+    onPress = () =>{
+        this.toScreen('AssetConfirm');
+    }
+    getTitleItems = () =>{
+        let array = [];
+        for(let i = 0;i<4;i++){
+           array.push(
+            <TouchableOpacity style={[{
+                width:getWidth()-getPixel(69),
+                marginLeft:getPixel(36),
+               backgroundColor:'rgba(22, 44, 87, 1)',
+               marginTop:getPixel(3)
+           },i===0 && {marginTop:getPixel(11)}]} 
+           activeOpacity={1} onPress={this.onPress}>
+           <View style={{
+                width:getWidth()-getPixel(69),
+               marginTop:getPixel(10),
+               flexDirection:'row',
+               justifyContent:'space-between',
+               alignItems:'center',
+               paddingHorizontal:getPixel(17)
+           }}>
+           <Text style={{
+               color:'white',
+               fontSize:getPixel(10),
+               fontWeight:RkTheme.currentTheme.weight.Regular
+           }}>FRBC</Text>
+            <Text style={{
+               color:'white',
+               fontSize:getPixel(10),
+               fontWeight:RkTheme.currentTheme.weight.Regular
+           }}>0</Text>
+           </View>
+           <View style={{
+                width:getWidth()-getPixel(69),
+               marginBottom:getPixel(10),
+               marginTop:getPixel(6),
+               flexDirection:'row',
+               justifyContent:'space-between',
+               alignItems:'center',
+               paddingHorizontal:getPixel(17)
+           }}>
+           <Text style={{
+               color:'#8F8F8D',
+               fontSize:getPixel(10),
+               fontWeight:RkTheme.currentTheme.weight.Regular
+           }}>=$175.08</Text>
+            <Text style={{
+               color:'#8F8F8D',
+               fontSize:getPixel(10),
+               fontWeight:RkTheme.currentTheme.weight.Regular
+           }}>=$175.08</Text>
+           </View>
+           </TouchableOpacity>
+           )
+        }
+        return array;
+    }
 
     render() {
         let itemList = [];
@@ -203,8 +261,7 @@ class OtherScreen extends BaseScreen {
 
                 }}>
                     <View style={{
-                        width: getWidth(),
-
+                        width: getWidth()
                     }}>
                         <View style={{
                             // marginTop: getTitlePixel(44),
@@ -213,16 +270,6 @@ class OtherScreen extends BaseScreen {
                             paddingHorizontal: getPixel(20), overflow: 'visible',
 
                         }}>
-                            {/* <View style={{
-                                width: getPixel(209),
-                                height: getPixel(24),
-                                backgroundColor: '#00000000',
-                                justifyContent: 'center',
-                                paddingLeft: getPixel(9)
-                            }}>
-                               
-                            </View>
-                            <View style={{ flexDirection: 'row' }}> */}
                             <Svgs onPress={() => {
                                 this.toScreen('My');
                             }} style={{ marginRight: getPixel(10) }}
@@ -232,92 +279,35 @@ class OtherScreen extends BaseScreen {
                                     show: !this.state.show
                                 });
                             }} icon={'menue'} size={getPixel(24)} />
-                            {/* </View> */}
                         </View>
                         <View style={{
-                            width: getWidth(),
-                            alignItems: 'center'
+                            width:getWidth()-getPixel(69),
+                            height:getPixel(77),
+                            marginLeft:getPixel(36),
+                            borderColor:'white',
+                            borderWidth:getPixel(5),
+                            marginTop:getPixel(23)
                         }}>
-                            <TouchableOpacity onPress={() => {
-                                this.toScreen('Scan');
-                            }} style={{
-                                width: getPixel(160),
-                                alignItems: 'center',
-                                marginTop: getPixel(40)
-                            }}>
-                                <Svgs icon={'icon_code'} color={'white'} size={getPixel(140)} />
-                                <Text style={{
-                                    marginTop: getPixel(15),
-                                    color: 'white'
-                                }}>{ext('spancode')}</Text>
-                            </TouchableOpacity>
+                        <Text style={{
+                            flex:1,
+                            lineHeight:getPixel(38),
+                            fontSize:getPixel(11),
+                            color:'white',
+                            paddingLeft:getPixel(17),
+                            fontWeight:RkTheme.currentTheme.weight.Regular,
+                            textAlign:'left'
+                        }}>总资产(USD)</Text>
+                         <Text style={{
+                            flex:1,
+                            lineHeight:getPixel(38),
+                            fontSize:getPixel(13),
+                            color:'white',
+                            fontWeight:RkTheme.currentTheme.weight.Regular,
+                            paddingHorizontal:getPixel(14),
+                            textAlign:'right'
+                        }}>= $312.90483622 </Text>
                         </View>
-
-                        <View style={{
-                            width: getWidth() - getPixel(80),
-                            marginLeft: getPixel(40),
-                            marginBottom: getPixel(10),
-                            height: getPixel(122),
-                            marginTop: getPixel(20)
-                        }}>
-                            <View style={{
-                                flex: 1,
-                                flexDirection: 'row'
-                            }}>
-                                <View style={{
-                                    flex: 1,
-                                    alignItems: 'center',
-                                    justifyContent: 'center',
-                                    backgroundColor: '#162d56'
-                                }}>
-                                    <Text style={{ color: 'white' }}>UPP</Text>
-                                    <Text style={{ color: 'white' }}>{this.SegmentedStore.userInfo.balance}</Text>
-                                </View>
-                                <View style={{
-                                    width: getPixel(10), height: getPixel(30),
-                                }}></View>
-                                <View style={{
-                                    flex: 1,
-                                    alignItems: 'center',
-                                    justifyContent: 'center',
-                                    backgroundColor: '#162d56'
-                                }}>
-                                    <Text style={{ color: 'white' }}>UPS</Text>
-                                    <Text style={{ color: 'white' }}>{this.SegmentedStore.userInfo.creditBalance}</Text>
-                                </View>
-                            </View>
-                            <View style={{
-                                height: getPixel(10),
-                                width: getPixel(30)
-                            }}></View>
-                            <View style={{
-                                flex: 1,
-                                flexDirection: 'row'
-                            }}>
-                                <View style={{
-                                    flex: 1,
-                                    alignItems: 'center',
-                                    justifyContent: 'center',
-                                    backgroundColor: '#162d56'
-                                }}>
-                                    <Text style={{ color: 'white' }}>UPI</Text>
-                                    <Text style={{ color: 'white' }}>0</Text>
-                                </View>
-                                <View style={{
-                                    width: getPixel(10), height: getPixel(30),
-                                }}></View>
-                                <View style={{
-                                    flex: 1,
-                                    alignItems: 'center',
-                                    justifyContent: 'center',
-                                    backgroundColor: '#162d56'
-                                }}>
-                                    <Text style={{ color: 'white' }}>UPO</Text>
-                                    <Text style={{ color: 'white' }}>0</Text>
-                                </View>
-                            </View>
-                        </View>
-
+                        {this.getTitleItems()}
                     </View>
 
                     <CommunitySpace navigation={this.props.navigation} />

@@ -12,15 +12,15 @@ class CommunitySpace extends BaseScreen {
 
     renderItem = () => {
         let data = [
-            { name: ext('send'), image: 'icon_upload', screen: 'Upload' },
-            { name: ext('download'), image: 'icon_down', screen: 'Down' },
+            { name: ext('aiPanada'), image: 'icon_upload', screen: 'AiPanada' },
+            { name: ext('shoukuan'), image: 'icon_down', screen: 'Down' },
             // { name: ext('checkoutcredit'), image: 'icon_qiehuan', screen: 'Checkout' },
-            { name: 'UPDOWN', image: 'icon_shangxia', screen: 'GameList' },
+            { name: ext('hangqing'), image: 'icon_shangxia', screen: '' },
             { name: ext('game'), image: 'icon_game', screen: '' },
-            { name: ext('ico'), image: 'icon_meijin', screen: '' },
-            { name: 'UPS', image: 'icon_cards', screen: '' },
-            { name: ext('Share'), image: 'fenxiang', screen: 'Share' },
-            { name: ext('buyPass'), image: 'geiqian', screen: '' },
+            { name: ext('shouyi'), image: 'icon_meijin', screen: 'Profit' },
+            { name: 'UPDOWN', image: 'icon_cards', screen: 'GameList' },
+            { name: ext('share'), image: 'fenxiang', screen: '' },
+            { name: ext('jiaoyisuo'), image: 'geiqian', screen: '' },
             { name: ext('shangcheng'), image: 'shangdian', screen: '' },
             { name: '', image: '', screen: '' },
         ];
@@ -32,7 +32,7 @@ class CommunitySpace extends BaseScreen {
                     if (item.screen) {
                         this.toScreen(item.screen)
                     } else {
-                        this.showToast('待开发');
+                        this.showToast('开发中');
                     }
                 }} style={{
                     width: getPixel(100),

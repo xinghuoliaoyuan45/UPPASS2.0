@@ -37,6 +37,12 @@ import GameResultScreen from './GameResultScreen';
 import GameOkScreen from './GameOkScreen';
 import GameNextScreen from './GameNextScreen';
 import GameResultListScreen from './GameResultListScreen';
+import AssetConfirmScreen from './AssetConfirmScreen';
+import TurnOutScreen from './TurnOutScreen';
+import ChangeScreen from './ChangeScreen';
+import ProfitScreen from './ProfitScreen';
+import PanadaTotalScreen from './PanadaTotalScreen';
+import AiPanadaScreen from './AiPanadaScreen';
 const HomeNavigator = createStackNavigator({
     SelectOther: SelectOtherScreen,
     Upload: UploadScreen,
@@ -70,7 +76,13 @@ const HomeNavigator = createStackNavigator({
     GameResult:GameResultScreen,
     GameOk:GameOkScreen,
     GameNext:GameNextScreen,
-    GameResultList:GameResultListScreen
+    GameResultList:GameResultListScreen,
+    AssetConfirm:AssetConfirmScreen,
+    TurnOut:TurnOutScreen,
+    Change:ChangeScreen,
+    Profit:ProfitScreen,
+    PanadaTotal:PanadaTotalScreen,
+    AiPanada:AiPanadaScreen
 }, {
         headerMode: 'none',
         mode: 'modal',

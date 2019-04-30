@@ -18,7 +18,7 @@ import { getWidth, getPixel, BaseHeader, getTitlePixel, load, USERJWTTOKEN } fro
 import { observable } from 'mobx';
 @inject('rootStore')
 @observer
-class UploadScreen extends BaseScreen {
+class DownScreen extends BaseScreen {
 
     @observable id = null;
 
@@ -62,7 +62,7 @@ class UploadScreen extends BaseScreen {
                                     fontSize: getPixel(13),
                                     fontWeight: '800',
                                     color: 'black'
-                                }}>{ext('saomaxiazai')}</Text>
+                                }}>{ext('saomazhuanru')}</Text>
                                 {this.id ? <QRCode
                                     value={this.id + ''}
                                     size={200}
@@ -85,9 +85,9 @@ class UploadScreen extends BaseScreen {
                         lineHeight: getPixel(40),
                         fontSize: getPixel(15),
                         marginTop: getPixel(40)
-                    }}>{ext('down_to_local')}</Text>
-                    <BaseHeader title={ext('download')} leftPress={this.goBack}
-                        rightName={ext('down_history')} rightPress={() => {
+                    }}>{ext('cpoyAddress')}</Text>
+                    <BaseHeader title={ext('in')} leftPress={this.goBack}
+                        rightName={ext('inHistory')} rightPress={() => {
                             this.toScreen('SelectSpace1');
                         }} />
                 </LinearGradient >
@@ -100,4 +100,4 @@ class UploadScreen extends BaseScreen {
 //         backgroundColor: theme.colors.gradualStart
 //     }
 // }));
-export default UploadScreen;
+export default DownScreen;
