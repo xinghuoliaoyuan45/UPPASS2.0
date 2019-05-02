@@ -25,11 +25,15 @@ class OtherScreen extends BaseScreen {
         this.state = {
             show: false
         }
-        const { SegmentedStore } = this.props.rootStore.mainStore;
+        const { SegmentedStore,OtherStore } = this.props.rootStore.mainStore;
         this.SegmentedStore = SegmentedStore;
+        this.OtherStore = OtherStore;
     }
 
     mComponentDidMount = async () => {
+        this.OtherStore.getSession(()=>{
+            this.OtherStore.getOtherData();
+        });
         let userId = await load(USERJWTTOKEN, '');
         JPushModule.getRegistrationID((registrationId) => {
             let param = new URLSearchParams()
@@ -142,10 +146,40 @@ class OtherScreen extends BaseScreen {
     onPress = () =>{
         this.toScreen('AssetConfirm');
     }
+    checkdata = (data) =>{
+        if(data){
+            data = data.toFixed(8);
+        }else{
+            data = null;
+        }
+        return data;
+    }
     getTitleItems = () =>{
         let array = [];
-        for(let i = 0;i<4;i++){
+        let frbcMultiply = this.checkdata(get(this.OtherStore.otherData,'frbcMultiply',null));
+        let ethMultiply = this.checkdata(get(this.OtherStore.otherData,'ethMultiply',null));
+        let btcMultiply = this.checkdata(get(this.OtherStore.otherData,'btcMultiply',null));
+        let frbcPrice = this.checkdata(get(this.OtherStore.otherData,'frbcPrice',null));
+        let ethPrice = this.checkdata(get(this.OtherStore.otherData,'ethPprice',null));
+        let btcPrice = this.checkdata(get(this.OtherStore.otherData,'btcPrice',null));
+        let otherData = [
+            {
+                name:'FRBC',
+                price:frbcMultiply,
+                number:frbcPrice
+            },{
+                name:'BTC',
+                price:btcMultiply,
+                number:btcPrice
+            },{
+                name:'ETH',
+                price:ethMultiply,
+                number:ethPrice
+            }
+        ]
+        for(let i = 0;i<otherData.length;i++){
            array.push(
+            get(otherData[i],'price',null) && get(otherData[i],'number',null)?
             <TouchableOpacity style={[{
                 width:getWidth()-getPixel(69),
                 marginLeft:getPixel(36),
@@ -165,12 +199,12 @@ class OtherScreen extends BaseScreen {
                color:'white',
                fontSize:getPixel(10),
                fontWeight:RkTheme.currentTheme.weight.Regular
-           }}>FRBC</Text>
+           }}>{get(otherData[i],'name')}</Text>
             <Text style={{
                color:'white',
                fontSize:getPixel(10),
                fontWeight:RkTheme.currentTheme.weight.Regular
-           }}>0</Text>
+           }}>{get(otherData[i],'number')}</Text>
            </View>
            <View style={{
                 width:getWidth()-getPixel(69),
@@ -185,14 +219,14 @@ class OtherScreen extends BaseScreen {
                color:'#8F8F8D',
                fontSize:getPixel(10),
                fontWeight:RkTheme.currentTheme.weight.Regular
-           }}>=$175.08</Text>
+           }}>{`= $${get(otherData[i],'price')}`}</Text>
             <Text style={{
                color:'#8F8F8D',
                fontSize:getPixel(10),
                fontWeight:RkTheme.currentTheme.weight.Regular
-           }}>=$175.08</Text>
+           }}>{`= $${get(otherData[i],'price')*get(otherData[i],'number')}`}</Text>
            </View>
-           </TouchableOpacity>
+           </TouchableOpacity>:<View/>
            )
         }
         return array;
@@ -208,6 +242,10 @@ class OtherScreen extends BaseScreen {
         ext('Becareful'),
         // ext('setting'),
         ext('logout')];
+        let allMoney = get(this.OtherStore.otherData,'allMoney',null);
+        if(allMoney){
+            allMoney = allMoney.toFixed(8);
+        }
         data.forEach((item) => {
             itemList.push(
                 <TouchableOpacity onPress={() => {
@@ -296,7 +334,7 @@ class OtherScreen extends BaseScreen {
                             paddingLeft:getPixel(17),
                             fontWeight:RkTheme.currentTheme.weight.Regular,
                             textAlign:'left'
-                        }}>总资产(USD)</Text>
+                        }}>{ext('zongzichan')}</Text>
                          <Text style={{
                             flex:1,
                             lineHeight:getPixel(38),
@@ -305,7 +343,7 @@ class OtherScreen extends BaseScreen {
                             fontWeight:RkTheme.currentTheme.weight.Regular,
                             paddingHorizontal:getPixel(14),
                             textAlign:'right'
-                        }}>= $312.90483622 </Text>
+                        }}>{`= $${allMoney}`} </Text>
                         </View>
                         {this.getTitleItems()}
                     </View>

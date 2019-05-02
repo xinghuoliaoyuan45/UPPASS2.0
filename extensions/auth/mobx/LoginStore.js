@@ -2,7 +2,7 @@ import { observable, action } from 'mobx';
 import { get } from 'lodash';
 import BaseStore from '../../mobx/BaseStore';
 import { save, USERINFO, USERJWTTOKEN, MEMERSPACES, SPACES,toastRequestError } from '../../shared';
-import { getSmsCode, toLogin, forgetPwd, login } from '../connect/request';
+import { getSmsCode, toLogin, forgetPwd, login,getSession } from '../connect/request';
 import { ext } from '../const';
 import 'url-search-params-polyfill';
 export default class LoginStore extends BaseStore {
@@ -78,6 +78,7 @@ export default class LoginStore extends BaseStore {
         let param = new URLSearchParams()
         param.append('tel', this.data.phone)
         param.append('password', this.data.passWord)
+        param.append('username','admin')
         login(param).then((res) => {
             let data = get(res, 'data');
             let rspCode = get(data, 'rspCode');
@@ -93,6 +94,17 @@ export default class LoginStore extends BaseStore {
             this.dataSuccess();
         });
     }
+    // @action
+    // login(successBack){
+    //     this.dataLoading();
+    //     let param = new URLSearchParams()
+    //     param.append('id',2)
+    //     getSession(param).then((res)=>{
+    //         successBack && successBack();
+    //     }).catch(()=>{
+    //         this.dataSuccess();
+    //     })
+    // }
 
     @action
     toLogin(successBack) {

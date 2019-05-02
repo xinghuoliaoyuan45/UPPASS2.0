@@ -8,7 +8,20 @@ import { RkTheme } from 'react-native-ui-kitten';
 import FastImage from 'react-native-fast-image';
 import BaseScreen from '../../BaseScreen';
 import { SafeAreaView } from 'react-navigation';
-export default class ProfitScreen extends BaseScreen {              
+import { observer, inject } from 'mobx-react';
+@inject('rootStore')
+@observer
+export default class ProfitScreen extends BaseScreen {     
+    constructor(props) {
+        super(props);
+        const { ShouyiStore } = this.props.rootStore.mainStore;
+        this.ShouyiStore = ShouyiStore;
+    }   
+    componentDidMount = () =>{
+         this.ShouyiStore.getSession(()=>{
+             this.ShouyiStore.produresUserList();
+         })
+     }      
     render() {
         return (
             <SafeAreaView style={{
@@ -76,7 +89,8 @@ export default class ProfitScreen extends BaseScreen {
                     paddingHorizontal:getPixel(20)
                 }} activeOpacity={1} onPress={()=>{
                     this.toScreen('PanadaTotal',{
-                        type:'panada'
+                        type:'panada',
+                        data:this.ShouyiStore.content
                     })
                 }}>
                 <Text style={{

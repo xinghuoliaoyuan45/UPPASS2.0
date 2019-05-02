@@ -60,3 +60,16 @@ export function USER_STATISTICAL(params){
 export function SET_REG_ID(params){
     return Net('post', Api.SET_REG_ID, params);
 }
+//
+export function getProfit(params){
+    return Net('post',Api.USER_PROFIT,params);
+}
+export function getQuotation(params){
+    return Net('post',Api.GETQUOTATION,params);
+}
+export function getSession(params){
+    return Net('post',Api.SESSION,params);
+}
+export function produresUserList(params){
+    return Net('post',Api.PRODURES_USER_LIST,params);
+}

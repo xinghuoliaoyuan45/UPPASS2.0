@@ -14,8 +14,8 @@ export const GAME_INSTANCE_NOT_PART='game_instance_not_part';
 export const USER_PART_IN_LIST="user_part_in_list";
 export const USER_STATISTICAL="user_statistical";
 export const SET_REG_ID="set_reg_id";
-
-
-
-
-
+//
+export const USER_PROFIT = '/count/user/profit';
+export const GETQUOTATION = '/getQuotation';
+export const SESSION = '/add/user/session';
+export const PRODURES_USER_LIST = '/investment/procedures/userList';

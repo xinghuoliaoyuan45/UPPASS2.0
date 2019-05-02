@@ -15,4 +15,7 @@ export function getCode(params) {
 export function resetPwd(params) {
     return Net('post', Api.RESET_PASSWORD, params);
 }
-
+//测试
+export function getSession(params){
+    return Net('post',Api.SESSION,params);
+}

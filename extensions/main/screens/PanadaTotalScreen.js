@@ -8,6 +8,7 @@ import { RkTheme } from 'react-native-ui-kitten';
 import FastImage from 'react-native-fast-image';
 import BaseScreen from '../../BaseScreen';
 import { SafeAreaView } from 'react-navigation';
+
 export default class PanadaTotalScreen extends BaseScreen {
     renderHeader = () => {
         return (
@@ -20,7 +21,7 @@ export default class PanadaTotalScreen extends BaseScreen {
             }}>
                 <View style={{
                     width: getWidth() / 3,
-                    alignItems: 'flex-start',
+                    alignItems: 'center',
                     justifyContent: 'center',
                     height: getPixel(50),
                     paddingLeft:getPixel(20)
@@ -46,7 +47,7 @@ export default class PanadaTotalScreen extends BaseScreen {
                 <View style={{
                     width: getWidth() / 3,
                     paddingRight:getPixel(20),
-                    alignItems: 'flex-end',
+                    alignItems: 'center',
                     justifyContent: 'center',
                     height: getPixel(50)
                 }}>
@@ -59,8 +60,18 @@ export default class PanadaTotalScreen extends BaseScreen {
             </View>
         )
     }
-    renderItemFunc = () =>{
-        return(
+    checkdata = (data) =>{
+        if(data){
+            data = data.toFixed(2);
+        }else{
+            data = '';
+        }
+        return data;
+    }
+
+    renderItemFunc = (item) =>{
+        const time = get(item,'item.createTime','');
+         return(
             <View style={{
                 width: getWidth(),
                 height: getPixel(50),
@@ -70,7 +81,7 @@ export default class PanadaTotalScreen extends BaseScreen {
             }}>
                 <View style={{
                     width: getWidth() / 3,
-                    alignItems: 'flex-start',
+                    alignItems: 'center',
                     justifyContent: 'center',
                     height: getPixel(50),
                     paddingLeft:getPixel(20)
@@ -79,7 +90,7 @@ export default class PanadaTotalScreen extends BaseScreen {
                         color: 'white',
                         fontSize: getPixel(14),
                         fontWeight: RkTheme.currentTheme.weight.Regular
-                    }}>{ext('profitType')}</Text>
+                    }}>{get(item,'item.type','')}</Text>
                 </View>
                 <View style={{
                     width: getWidth() / 3,
@@ -91,12 +102,12 @@ export default class PanadaTotalScreen extends BaseScreen {
                         color: 'white',
                         fontSize: getPixel(14),
                         fontWeight: RkTheme.currentTheme.weight.Regular
-                    }}>{ext('money')}</Text>
+                    }}>{this.checkdata(get(item,'item.money',''))}</Text>
                 </View>
                 <View style={{
                     width: getWidth() / 3,
                     paddingRight:getPixel(20),
-                    alignItems: 'flex-end',
+                    alignItems: 'center',
                     justifyContent: 'center',
                     height: getPixel(50)
                 }}>
@@ -104,7 +115,7 @@ export default class PanadaTotalScreen extends BaseScreen {
                         color: 'white',
                         fontSize: getPixel(14),
                         fontWeight: RkTheme.currentTheme.weight.Regular
-                    }}>{ext('date')}</Text>
+                    }}>{time}</Text>
                 </View>
             </View>
         )
@@ -112,6 +123,7 @@ export default class PanadaTotalScreen extends BaseScreen {
     render() {
         const {state} = this.props.navigation;
         const type = get(state,'params.type','');
+        const data = get(state,'params.data');
         return (
             <SafeAreaView style={{
                 flex: 1,
@@ -125,6 +137,7 @@ export default class PanadaTotalScreen extends BaseScreen {
                     backgroundColor: '#132141',
                     paddingBottom: getPixel(10),
                     borderRadius: getPixel(5),
+                    marginBottom:getPixel(14)
                 }}>
                     <Text style={{
                         color: '#F0895A',
@@ -166,46 +179,7 @@ export default class PanadaTotalScreen extends BaseScreen {
                         </Text>
                     </View>
                 </View>
-                <View style={{
-                    width: getWidth(),
-                    height: getPixel(58),
-                    flexDirection: 'row',
-                    alignItems: 'center',
-                    justifyContent: 'space-between',
-                    marginTop: getPixel(14),
-                    backgroundColor: '#132141',
-                    borderRadius: getPixel(3),
-                    paddingHorizontal: getPixel(20)
-                }}>
-                    <Text style={{
-                        color: 'white',
-                        fontSize: getPixel(14),
-                        fontWeight: RkTheme.currentTheme.weight.Regular,
-                    }}>{ext('panadaToTalProfit')}
-                    </Text>
-                    <Svgs icon='icon_rightArrow'
-                        size='12' color='white'></Svgs></View>
-                <View style={{
-                    width: getWidth(),
-                    height: getPixel(58),
-                    flexDirection: 'row',
-                    alignItems: 'center',
-                    justifyContent: 'space-between',
-                    marginTop: getPixel(14),
-                    borderRadius: getPixel(3),
-                    backgroundColor: '#132141',
-                    paddingHorizontal: getPixel(20),
-                    marginBottom: getPixel(10)
-                }}>
-                    <Text style={{
-                        color: 'white',
-                        fontSize: getPixel(14),
-                        fontWeight: RkTheme.currentTheme.weight.Regular
-                    }}>{ext('commuintiesTotalProfit')}
-                    </Text>
-                    <Svgs icon='icon_rightArrow'
-                        size='12' color='white'></Svgs></View>
-                <KBFlatList data={[]}
+                <KBFlatList data={data}
                     renderItem={this.renderItemFunc}
                     ListHeaderComponent={this.renderHeader} />
                 <BaseHeader title={ext('shouyi')} leftType='back'

@@ -6,6 +6,8 @@ import SegmentedStore from './SegmentedStore';
 import UploadStore from './UploadStore';
 import CheckoutStore from './CheckoutStore';
 import GameStore from './GameStore';
+import OtherStore from './OtherStore';
+import ShouyiStore from './ShouyiStore';
 class RootStore {
     constructor(props) {
         this.MainStore = new MainStore(props);
@@ -16,6 +18,8 @@ class RootStore {
         this.UploadStore = new UploadStore(props);
         this.CheckoutStore = new CheckoutStore(props);
         this.GameStore = new GameStore(props);
+        this.OtherStore = new OtherStore(props);
+        this.ShouyiStore = new ShouyiStore(props);
     }
 }
 
