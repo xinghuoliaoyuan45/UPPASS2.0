@@ -19,8 +19,7 @@ class SplashScreen extends BaseScreen {
             // this.toScreen('Contact');
             // ContactScreen
         } else {
-          //  this.toScreen('Login');
-          this.toScreen('Main');
+           this.toScreen('Login');
         }
     }
     render() {

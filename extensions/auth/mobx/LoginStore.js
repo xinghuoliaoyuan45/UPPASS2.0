@@ -78,7 +78,7 @@ export default class LoginStore extends BaseStore {
         let param = new URLSearchParams()
         param.append('tel', this.data.phone)
         param.append('password', this.data.passWord)
-        param.append('username','admin')
+        //param.append('username','admin')
         login(param).then((res) => {
             let data = get(res, 'data');
             let rspCode = get(data, 'rspCode');

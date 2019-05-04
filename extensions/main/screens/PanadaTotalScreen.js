@@ -8,6 +8,7 @@ import { RkTheme } from 'react-native-ui-kitten';
 import FastImage from 'react-native-fast-image';
 import BaseScreen from '../../BaseScreen';
 import { SafeAreaView } from 'react-navigation';
+import moment from 'moment';
 
 export default class PanadaTotalScreen extends BaseScreen {
     renderHeader = () => {
@@ -70,7 +71,8 @@ export default class PanadaTotalScreen extends BaseScreen {
     }
 
     renderItemFunc = (item) =>{
-        const time = get(item,'item.createTime','');
+        let time = get(item,'item.createTime','');
+        time = moment(time).format('YY-MM-DD HH:mm:ss');
          return(
             <View style={{
                 width: getWidth(),

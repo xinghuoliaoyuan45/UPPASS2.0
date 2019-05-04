@@ -73,3 +73,9 @@ export function getSession(params){
 export function produresUserList(params){
     return Net('post',Api.PRODURES_USER_LIST,params);
 }
+export function openInvestment(params){
+    return Net('post',Api.OPENINVESTMENT,params);
+}
+export function getAiPanadaData(params){
+    return Net('post',Api.QUERY_OPEN_STATE,params);
+}

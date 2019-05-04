@@ -8,7 +8,7 @@ import {toastRequestError} from '../../shared';
 export default class OtherStore extends BaseStore {
     @observable otherData = '';
     
-    getSession = async(successBack) =>{
+    getSession = (successBack) =>{
         this.dataLoading();
         let param = new URLSearchParams()
         param.append('id',2)
@@ -19,7 +19,7 @@ export default class OtherStore extends BaseStore {
             successBack && successBack();
         })
     }
-    getOtherData = async(successBack) =>{
+    getOtherData = (successBack) =>{
         this.dataLoading();
         getQuotation().then((res)=>{
             let data=get(res,'data');

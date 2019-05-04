@@ -146,9 +146,9 @@ class OtherScreen extends BaseScreen {
     onPress = () =>{
         this.toScreen('AssetConfirm');
     }
-    checkdata = (data) =>{
+    checkdata = (data,number) =>{
         if(data){
-            data = data.toFixed(8);
+            data = data.toFixed(number);
         }else{
             data = null;
         }
@@ -156,12 +156,12 @@ class OtherScreen extends BaseScreen {
     }
     getTitleItems = () =>{
         let array = [];
-        let frbcMultiply = this.checkdata(get(this.OtherStore.otherData,'frbcMultiply',null));
-        let ethMultiply = this.checkdata(get(this.OtherStore.otherData,'ethMultiply',null));
-        let btcMultiply = this.checkdata(get(this.OtherStore.otherData,'btcMultiply',null));
-        let frbcPrice = this.checkdata(get(this.OtherStore.otherData,'frbcPrice',null));
-        let ethPrice = this.checkdata(get(this.OtherStore.otherData,'ethPprice',null));
-        let btcPrice = this.checkdata(get(this.OtherStore.otherData,'btcPrice',null));
+        let frbcMultiply = this.checkdata(get(this.OtherStore.otherData,'frbcMultiply',null),2);
+        let ethMultiply = this.checkdata(get(this.OtherStore.otherData,'ethMultiply',null),2);
+        let btcMultiply = this.checkdata(get(this.OtherStore.otherData,'btcMultiply',null),2);
+        let frbcPrice = this.checkdata(get(this.OtherStore.otherData,'frbcPrice',null),8);
+        let ethPrice = this.checkdata(get(this.OtherStore.otherData,'ethPprice',null),8);
+        let btcPrice = this.checkdata(get(this.OtherStore.otherData,'btcPrice',null),8);
         let otherData = [
             {
                 name:'FRBC',
@@ -244,7 +244,7 @@ class OtherScreen extends BaseScreen {
         ext('logout')];
         let allMoney = get(this.OtherStore.otherData,'allMoney',null);
         if(allMoney){
-            allMoney = allMoney.toFixed(8);
+            allMoney = allMoney.toFixed(2);
         }
         data.forEach((item) => {
             itemList.push(

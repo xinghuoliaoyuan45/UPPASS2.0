@@ -10,15 +10,37 @@ import BaseScreen from '../../BaseScreen';
 import { SafeAreaView } from 'react-navigation';
 import { observer, inject } from 'mobx-react';
 
-// @inject('rootStore')
+ @inject('rootStore')
 @observer
 export default class AiPanadaOPen extends BaseScreen {
     @observable show = false;
-    changeShow = () => {
+    @observable type = '';
+    @observable money = '';
+    constructor(props) {
+        super(props);
+        const { AiPanadaStore } = this.props.rootStore.mainStore;
+        this.AiPanadaStore = AiPanadaStore;
+    }   
+    changeShow = (type,number) => {
         this.show = !this.show;
+        this.type = type;
+        this.number = this.check(number);
+    }
+    confirm = () =>{
+        this.show = false;
+        const {onPress} = this.props;
+        onPress && onPress();
+    }
+    check = (number) =>{
+        let num = '';
+        if(number){
+            num = number.toFixed(8);
+        }
+        return num;
     }
     render() {
-        const { title,placeHolder1,placeHolder2,placeHolder3 } = this.props;
+        //type 0开启 1关闭
+        const { title,chexiao } = this.props;
         return (
             this.show ?
                 <View style={{
@@ -39,25 +61,42 @@ export default class AiPanadaOPen extends BaseScreen {
                         borderRadius: getPixel(7),
                         alignItems: 'center'
                     }}>
-                        {/* <ImageBackground style={{
-                            marginBottom:0,
-                            marginRight:0
-                        }} source={require('../assets/sanjiaoxing.png')} /> */}
+                        <Image style={{
+                            bottom:0,
+                            right:0,
+                            position:'absolute',
+                        }} source={require('../assets/sanjiaoxing.png')} />
                         <Text style={{
                             marginTop: getPixel(25),
                             color: 'white',
                             fontSize: getPixel(15),
                             fontWeight: RkTheme.currentTheme.weight.Regular
                         }}>{title ? title : ext('openAiPanada')}</Text>
-                        <TextInput style={{
+                        {chexiao ? 
+                        <View style={{
+                            width:getWidth()-getPixel(70),
+                            height:getPixel(41),
+                            backgroundColor:'rgb(140,146,161)',
+                            alignItems:'center',
+                            justifyContent:'center',
+                            marginTop:getPixel(30),
+                        }}><Text style={{
+                            color:'white',
+                            fontSize:getPixel(10),
+                            fontWeight:RkTheme.currentTheme.weight.Regular
+                        }}>{`${this.type}=${this.number}`}</Text>
+                        </View> :<View/>}
+                        <TextInput style={[{
                             width:getWidth()-getPixel(70),
                             height:getPixel(41),
                             backgroundColor:'rgb(140,146,161)',
                             textAlign:'center',
                             marginTop:getPixel(30),
-                        }} placeholder={placeHolder1?placeHolder1:
-                        ext('pleaseInputNumber')}
-                        placeholderTextColor='white'/>
+                            color:'white'
+                        },chexiao && {marginTop:getPixel(13)}]} 
+                        placeholder={ ext('pleaseInputNumber')}
+                        placeholderTextColor='white'
+                        onChangeText={(text)=>{this.AiPanadaStore.changeNumber(text)}}/>
                         <TextInput style={{
                             width:getWidth()-getPixel(70),
                             height:getPixel(41),
@@ -65,19 +104,9 @@ export default class AiPanadaOPen extends BaseScreen {
                             textAlign:'center',
                             marginTop:getPixel(13),
                             color:'white'
-                        }} placeholder={placeHolder2?placeHolder2:
-                        ext('pleaseInputPsd')}
-                        placeholderTextColor='white'/>
-                        {placeHolder3 &&
-                        <TextInput style={{
-                            width:getWidth()-getPixel(70),
-                            height:getPixel(41),
-                            backgroundColor:'rgb(140,146,161)',
-                            textAlign:'center',
-                            marginTop:getPixel(13),
-                            color:'white'
-                        }} placeholder={placeHolder3}
-                        placeholderTextColor='white'/>}
+                        }} placeholder={ext('pleaseInputPsd')}
+                        placeholderTextColor='white'
+                        onChangeText={(text)=>{this.AiPanadaStore.changePsd(text)}}/>
                         <View style={[{
                             width:getWidth()-getPixel(60),
                             paddingHorizontal:getPixel(10),
@@ -85,11 +114,11 @@ export default class AiPanadaOPen extends BaseScreen {
                             flexDirection:'row',
                             alignItems:'flex-start',
                             justifyContent:'space-between'
-                        },title===ext('chexiao') && {marginTop:getPixel(22)}]}>
+                        },chexiao && {marginTop:getPixel(22)}]}>
                         <TouchableOpacity style={{
                             flex:1
                         }} activeOpacity={1}
-                        onPress={()=>{this.show = false}}>
+                        onPress={this.confirm}>
                         <ImageBackground style={{
                             width:(getWidth()-getPixel(90))/2,
                             height:getPixel(55),
