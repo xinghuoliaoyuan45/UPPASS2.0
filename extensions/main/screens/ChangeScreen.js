@@ -8,8 +8,36 @@ import { RkTheme } from 'react-native-ui-kitten';
 import FastImage from 'react-native-fast-image';
 import BaseScreen from '../../BaseScreen';
 import { SafeAreaView } from 'react-navigation';
+import { observer, inject } from 'mobx-react';
+@inject('rootStore')
+@observer
 export default class ChangeScreen extends BaseScreen {
+
+    constructor(props) {
+        super(props);
+        const { ChangeStore } = this.props.rootStore.mainStore;
+        this.ChangeStore = ChangeStore;
+    }
+    mComponentDidMount = () => {
+        this.ChangeStore.getChangeData();
+    }
+    checkdata = (data, number) => {
+        if (data) {
+            data = data.toFixed(number);
+        } else {
+            data = null;
+        }
+        return data;
+    }
     renderHeader = () => {
+        const { state } = this.props.navigation;
+        const titile = get(state, 'params.title');
+        const serviceCharge = get(this.ChangeStore.changeData, 'serviceCharge', '');
+        const rateOfExchange = get(this.ChangeStore.changeData, 'rateOfExchange', '');
+        const ETHnumber = rateOfExchange * get(this.ChangeStore.changeData, 'frbcNum', null);
+
+        const frbcPrice = this.checkdata(get(this.ChangeStore.changeData, 'frbcPrice', null), 2);
+        const ethPrice = this.checkdata(parseFloat(get(this.ChangeStore.changeData, 'ethPrice', null)), 2)
         return (
             <View style={{
                 width: getWidth()
@@ -17,47 +45,47 @@ export default class ChangeScreen extends BaseScreen {
                 <View style={{
                     width: getWidth(),
                     marginTop: getPixel(8),
-                    flexDirection:'row',
+                    flexDirection: 'row',
                 }}>
                     <View style={{
-                        width:getWidth()/2,
-                        height:getPixel(63),
-                        alignItems:'center',
-                        justifyContent:'center',
-                        borderRadius:getPixel(5),
-                        backgroundColor:'#132141'
+                        width: getWidth() / 2,
+                        height: getPixel(63),
+                        alignItems: 'center',
+                        justifyContent: 'center',
+                        borderRadius: getPixel(5),
+                        backgroundColor: '#132141'
                     }}>
-                    <Text style={{
-                        color: 'white',
-                        fontSize: getPixel(14),
-                        fontWeight: RkTheme.currentTheme.weight.Regular
-                    }}>FRBC</Text>
-                    <Text style={{
-                        marginTop:getPixel(10),
-                        color: 'rgb(203,201,200)',
-                        fontSize: getPixel(13),
-                        fontWeight: RkTheme.currentTheme.weight.Regular
-                    }}>0.0000</Text>
+                        <Text style={{
+                            color: 'white',
+                            fontSize: getPixel(14),
+                            fontWeight: RkTheme.currentTheme.weight.Regular
+                        }}>FRBC</Text>
+                        <Text style={{
+                            marginTop: getPixel(10),
+                            color: 'rgb(203,201,200)',
+                            fontSize: getPixel(13),
+                            fontWeight: RkTheme.currentTheme.weight.Regular
+                        }}>{this.checkdata(get(this.ChangeStore.changeData, 'frbcNum', null), 8)}</Text>
                     </View>
                     <View style={{
-                        width:getWidth()/2,
-                        height:getPixel(63),
-                        alignItems:'center',
-                        justifyContent:'center',
-                        borderRadius:getPixel(5),
-                        backgroundColor:'#132141'
+                        width: getWidth() / 2,
+                        height: getPixel(63),
+                        alignItems: 'center',
+                        justifyContent: 'center',
+                        borderRadius: getPixel(5),
+                        backgroundColor: '#132141'
                     }}>
-                    <Text style={{
-                        color: 'white',
-                        fontSize: getPixel(14),
-                        fontWeight: RkTheme.currentTheme.weight.Regular
-                    }}>FRBC</Text>
-                    <Text style={{
-                        marginTop:getPixel(10),
-                        color: 'rgb(203,201,200)',
-                        fontSize: getPixel(13),
-                        fontWeight: RkTheme.currentTheme.weight.Regular
-                    }}>0.0000</Text>
+                        <Text style={{
+                            color: 'white',
+                            fontSize: getPixel(14),
+                            fontWeight: RkTheme.currentTheme.weight.Regular
+                        }}>{titile}</Text>
+                        <Text style={{
+                            marginTop: getPixel(10),
+                            color: 'rgb(203,201,200)',
+                            fontSize: getPixel(13),
+                            fontWeight: RkTheme.currentTheme.weight.Regular
+                        }}>{this.checkdata(get(this.ChangeStore.changeData, 'ethNum', null), 8)}</Text>
                     </View>
                 </View>
                 <View style={{
@@ -66,55 +94,61 @@ export default class ChangeScreen extends BaseScreen {
                     marginTop: getPixel(5),
                 }}>
                     <View style={{
-                        width:getWidth(),
-                        paddingHorizontal:getPixel(20),
-                        flexDirection:'row',
-                        alignItems:'center',
-                        justifyContent:'space-between',
-                         marginTop:getPixel(15),
-                         backgroundColor:'#162C57',
-                         paddingVertical:getPixel(10)
+                        width: getWidth(),
+                        paddingHorizontal: getPixel(20),
+                        flexDirection: 'row',
+                        alignItems: 'center',
+                        justifyContent: 'space-between',
+                        marginTop: getPixel(15),
+                        backgroundColor: '#162C57',
+                        paddingVertical: getPixel(10)
                     }}>
-                    <Text style={{
-                        color: 'rgb(203,201,200)',
-                        fontSize: getPixel(10),
-                        fontWeight: RkTheme.currentTheme.weight.Regular
-                    }}>{ext('shouxvfeibaifenbi')}</Text>
-                    <Text style={{
-                        color: 'rgb(203,201,200)',
-                        fontSize: getPixel(10),
-                        fontWeight: RkTheme.currentTheme.weight.Regular
-                    }}>ETH($)174.8900</Text>
+                        <Text style={{
+                            color: 'rgb(203,201,200)',
+                            fontSize: getPixel(10),
+                            fontWeight: RkTheme.currentTheme.weight.Regular
+                        }}>{ext('shouxvfeibaifenbi', { serviceCharge })}</Text>
+                        <Text style={{
+                            color: 'rgb(203,201,200)',
+                            fontSize: getPixel(10),
+                            fontWeight: RkTheme.currentTheme.weight.Regular
+                        }}>{`ETH($)${frbcPrice}`}</Text>
                     </View>
                     <View style={{
-                        marginTop:getPixel(3),
-                        flexDirection:'row',
-                        alignItems:'center',
-                        justifyContent:'space-between',
-                        paddingVertical:getPixel(10),
-                        marginBottom:getPixel(5),
-                        width:getWidth(),
-                        paddingHorizontal:getPixel(20),
-                        backgroundColor:'#162C57'
+                        marginTop: getPixel(3),
+                        flexDirection: 'row',
+                        alignItems: 'center',
+                        justifyContent: 'space-between',
+                        paddingVertical: getPixel(10),
+                        marginBottom: getPixel(5),
+                        width: getWidth(),
+                        paddingHorizontal: getPixel(20),
+                        backgroundColor: '#162C57'
                     }}>
-                    <Text style={{
-                        color: 'rgb(203,201,200)',
-                        fontSize: getPixel(10),
-                        fontWeight: RkTheme.currentTheme.weight.Regular
-                    }}>{ext('zuidatuihuan')}</Text>
-                    <Text style={{
-                        color: 'rgb(203,201,200)',
-                        fontSize: getPixel(10),
-                        fontWeight: RkTheme.currentTheme.weight.Regular
-                    }}>FRBC($)85.8900</Text>
+                        <Text style={{
+                            color: 'rgb(203,201,200)',
+                            fontSize: getPixel(10),
+                            fontWeight: RkTheme.currentTheme.weight.Regular
+                        }}>{ext('zuidatuihuan', { ETHnumber })}</Text>
+                        <Text style={{
+                            color: 'rgb(203,201,200)',
+                            fontSize: getPixel(10),
+                            fontWeight: RkTheme.currentTheme.weight.Regular
+                        }}>{`ETH($)${ethPrice}`}</Text>
                     </View>
-                    
                 </View>
             </View>
         )
     }
 
     render() {
+        const { state } = this.props.navigation;
+        const type = get(state, 'params.title');
+        const panderCharge = get(this.ChangeStore.changeData,'panderCharge','');
+        let FRBCNum = '';
+        if(this.ChangeStore.ethNumber){
+            FRBCNum = panderCharge * this.ChangeStore.ethNumber;
+        }
         return (
             <SafeAreaView style={{
                 flex: 1,
@@ -133,7 +167,10 @@ export default class ChangeScreen extends BaseScreen {
                     justifyContent: 'space-between'
                 }}>
                     <TextInput style={{ flex: 1 }}
-                        placeholder={ext('inputNumber')} />
+                        placeholder={ext('inputNumber')}
+                        onChangeText={(text) => {
+                            this.ChangeStore.changeFrnbNumber(text);
+                        }} />
                 </View>
                 <View style={{
                     width: getWidth(),
@@ -146,7 +183,10 @@ export default class ChangeScreen extends BaseScreen {
                     justifyContent: 'space-between'
                 }}>
                     <TextInput style={{ flex: 1 }}
-                        placeholder={ext('changeNumber')} />
+                        placeholder={ext('changeNumber', { type })} 
+                        onChangeText={(text)=>{
+                            this.ChangeStore.changeEthNUmber(text)
+                        }}/>
                 </View>
                 <View style={{
                     width: getWidth(),
@@ -159,16 +199,21 @@ export default class ChangeScreen extends BaseScreen {
                     justifyContent: 'space-between'
                 }}>
                     <TextInput style={{ flex: 1 }}
-                        placeholder={ext('changePsd')} />
+                        placeholder={ext('changePsd')}
+                        onChangeText={(text) => {
+                            this.ChangeStore.changePsd(text)
+                        }} />
                 </View>
-                <Text style={{
+                {this.ChangeStore.ethNumber ?
+                  <Text style={{
                     width: getWidth() - getPixel(40),
                     marginLeft: getPixel(20),
                     color: '#A34294',
                     fontSize: getPixel(12),
                     fontWeight: RkTheme.currentTheme.weight.Regular,
                     marginTop: getPixel(11)
-                }}>{ext('shouxvfee')}</Text>
+                }}>{ext('shouxvfee',{FRBCNum,panderCharge})}</Text>:<View/> }
+              
                 <TouchableOpacity style={{
                     borderRadius: getPixel(5),
                     width: getWidth() - getPixel(65),
@@ -178,7 +223,7 @@ export default class ChangeScreen extends BaseScreen {
                     justifyContent: 'center',
                     backgroundColor: '#132141',
                     marginTop: getPixel(100)
-                }} activeOpacity={1}>
+                }} activeOpacity={1} onPress={this.change}>
                     <Text style={{
                         color: 'rgb(203,201,200)',
                         fontSize: getPixel(14),
@@ -189,5 +234,9 @@ export default class ChangeScreen extends BaseScreen {
                     leftPress={this.goBack} linearColor={['#132141', '#132141']} />
             </SafeAreaView>
         )
+    }
+
+    change = () => {
+        this.ChangeStore.change();
     }
 }

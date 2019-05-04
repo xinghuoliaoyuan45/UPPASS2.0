@@ -15,7 +15,7 @@ class CommunitySpace extends BaseScreen {
             { name: ext('aiPanada'), image: 'icon_upload', screen: 'AiPanada' },
             { name: ext('shoukuan'), image: 'icon_down', screen: 'Down' },
             // { name: ext('checkoutcredit'), image: 'icon_qiehuan', screen: 'Checkout' },
-            { name: ext('hangqing'), image: 'icon_shangxia', screen: '' },
+            { name: ext('hangqing'), image: 'icon_shangxia', screen: 'Hangqing' },
             { name: ext('game'), image: 'icon_game', screen: '' },
             { name: ext('shouyi'), image: 'icon_meijin', screen: 'Profit' },
             { name: 'UPDOWN', image: 'icon_cards', screen: 'GameList' },

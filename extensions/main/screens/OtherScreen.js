@@ -31,9 +31,7 @@ class OtherScreen extends BaseScreen {
     }
 
     mComponentDidMount = async () => {
-        this.OtherStore.getSession(()=>{
-            this.OtherStore.getOtherData();
-        });
+        this.OtherStore.getOtherData();
         let userId = await load(USERJWTTOKEN, '');
         JPushModule.getRegistrationID((registrationId) => {
             let param = new URLSearchParams()
@@ -97,7 +95,6 @@ class OtherScreen extends BaseScreen {
     }
 
     parseJpushMessage = (data) => {
-        console.log('console log for chrom data', data);
         this.showMsgToast(data.title);
     }
     toMsgScreen = (data) => {
@@ -143,9 +140,7 @@ class OtherScreen extends BaseScreen {
             }).catch();
         }
     }
-    onPress = () =>{
-        this.toScreen('AssetConfirm');
-    }
+    
     checkdata = (data,number) =>{
         if(data){
             data = data.toFixed(number);
@@ -186,7 +181,11 @@ class OtherScreen extends BaseScreen {
                backgroundColor:'rgba(22, 44, 87, 1)',
                marginTop:getPixel(3)
            },i===0 && {marginTop:getPixel(11)}]} 
-           activeOpacity={1} onPress={this.onPress}>
+           activeOpacity={1} onPress={()=>{
+            this.toScreen('AssetConfirm',{
+               data:otherData[i]
+            });
+           }}>
            <View style={{
                 width:getWidth()-getPixel(69),
                marginTop:getPixel(10),

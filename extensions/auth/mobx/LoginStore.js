@@ -1,7 +1,7 @@
 import { observable, action } from 'mobx';
 import { get } from 'lodash';
 import BaseStore from '../../mobx/BaseStore';
-import { save, USERINFO, USERJWTTOKEN, MEMERSPACES, SPACES,toastRequestError } from '../../shared';
+import { save, USERINFO, USERJWTTOKEN, MEMERSPACES, SPACES,toastRequestError,TELPHONE } from '../../shared';
 import { getSmsCode, toLogin, forgetPwd, login,getSession } from '../connect/request';
 import { ext } from '../const';
 import 'url-search-params-polyfill';
@@ -84,7 +84,8 @@ export default class LoginStore extends BaseStore {
             let rspCode = get(data, 'rspCode');
             if (rspCode === '000000') {
                 save(USERINFO, get(data, 'data', ''));
-                save(USERJWTTOKEN, get(data, 'data.user_id', ''));
+                save(USERJWTTOKEN, get(data, 'data.id', ''));
+                save(TELPHONE,get(data,'data.tel',''));
                 successBack && successBack();
             } else {
                 toastRequestError(data);

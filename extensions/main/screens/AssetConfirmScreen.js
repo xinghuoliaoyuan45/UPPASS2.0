@@ -33,6 +33,8 @@ export default class AssetConfirmScreen extends BaseScreen {
         ]
     }
     renderHeader = () => {
+        const {state} = this.props.navigation;
+        const data = get(state,'params.data','');
         return (
             <View style={{
                 width: getWidth()
@@ -50,13 +52,13 @@ export default class AssetConfirmScreen extends BaseScreen {
                         color: 'rgb(203,201,200)',
                         fontSize: getPixel(14),
                         fontWeight: RkTheme.currentTheme.weight.Regular
-                    }}>4</Text>
+                    }}>{get(data,'number','')}</Text>
                     <Text style={{
                         color: 'rgb(203,201,200)',
                         fontSize: getPixel(14),
                         marginTop: getPixel(9),
                         fontWeight: RkTheme.currentTheme.weight.Regular
-                    }}>=$49.000000</Text>
+                    }}>{`= $${get(data,'price')*get(data,'number')}`}</Text>
 
                 </View>
                 <View style={{
@@ -136,6 +138,8 @@ export default class AssetConfirmScreen extends BaseScreen {
         )
     }
     render() {
+        const {state} = this.props.navigation;
+        const data = get(state,'params.data','');
         return (
             <SafeAreaView style={{
                 flex: 1,
@@ -166,7 +170,11 @@ export default class AssetConfirmScreen extends BaseScreen {
                             justifyContent:'center',
                             backgroundColor:'#132141'
                         }} activeOpacity={1} onPress={()=>{
-                            this.toScreen('TurnOut')
+                            this.toScreen('TurnOut',{
+                                title:get(data,'name',''),
+                                number:get(data,'number',''),
+                                price:get(data,'price')
+                            })
                         }}>
                         <Text style={{
                             color: 'rgb(203,201,200)',
@@ -175,26 +183,32 @@ export default class AssetConfirmScreen extends BaseScreen {
                         }}>{ext('out')}</Text>
                         </TouchableOpacity>
                     </View>
+                    
                     <View style={{
                         width: getWidth() / 3,
                         alignItems: 'center'
                     }}>
-                        <TouchableOpacity style={{
-                            borderRadius: getPixel(3),
-                            width:getPixel(85),
-                            height:getPixel(42),
-                            alignItems:'center',
-                            justifyContent:'center',
-                            backgroundColor:'#132141'
-                        }} activeOpacity={1} onPress={()=>{
-                            this.toScreen('Change')
-                        }}>
-                        <Text style={{
-                            color: 'rgb(203,201,200)',
-                            fontSize: getPixel(10),
-                            fontWeight: RkTheme.currentTheme.weight.Regular,
-                        }}>{ext('change')}</Text>
-                        </TouchableOpacity>
+                    {get(data,'name') === 'ETH' ? 
+                    <TouchableOpacity style={{
+                        borderRadius: getPixel(3),
+                        width:getPixel(85),
+                        height:getPixel(42),
+                        alignItems:'center',
+                        justifyContent:'center',
+                        backgroundColor:'#132141'
+                    }} activeOpacity={1} onPress={()=>{
+                        this.toScreen('Change',{
+                            title:get(data,'name','')
+                        })
+                    }}>
+                    <Text style={{
+                        color: 'rgb(203,201,200)',
+                        fontSize: getPixel(10),
+                        fontWeight: RkTheme.currentTheme.weight.Regular,
+                    }}>{ext('change')}</Text>
+                    </TouchableOpacity>:<View/>
+                    }
+                        
                     </View>
                     <View style={{
                         width: getWidth() / 3,
@@ -217,7 +231,7 @@ export default class AssetConfirmScreen extends BaseScreen {
                         </TouchableOpacity>
                     </View>
                 </View>
-                <BaseHeader title='FRBC' leftType='back'
+                <BaseHeader title={get(data,'name','')} leftType='back'
                     leftPress={this.goBack} linearColor={['#132141', '#132141']} />
             </SafeAreaView>
         )

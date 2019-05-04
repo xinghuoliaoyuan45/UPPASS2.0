@@ -21,3 +21,6 @@ export const SESSION = '/add/user/session';
 export const PRODURES_USER_LIST = '/investment/procedures/userList';
 export const OPENINVESTMENT = '/investment/procedures/openInvestment';
 export const QUERY_OPEN_STATE = '/aipanda/query_open_state';
+export const FRBCEXCHANGEETH = '/FRBCexchangeETH';
+export const EXCHANGE = '/query/user/exchange';
+export const WITHDRAWAL = '/cash/withdrawal';

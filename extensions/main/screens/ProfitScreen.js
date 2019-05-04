@@ -18,9 +18,7 @@ export default class ProfitScreen extends BaseScreen {
         this.ShouyiStore = ShouyiStore;
     }   
     componentDidMount = () =>{
-         this.ShouyiStore.getSession(()=>{
-             this.ShouyiStore.produresUserList();
-         })
+        this.ShouyiStore.produresUserList();
      }      
     render() {
         return (

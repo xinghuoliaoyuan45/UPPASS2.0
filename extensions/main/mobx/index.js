@@ -9,6 +9,8 @@ import GameStore from './GameStore';
 import OtherStore from './OtherStore';
 import ShouyiStore from './ShouyiStore';
 import AiPanadaStore from './AiPanadaStore';
+import ChangeStore from './ChangeStore';
+import TurnOutStore from './TurnOutStore';
 class RootStore {
     constructor(props) {
         this.MainStore = new MainStore(props);
@@ -22,6 +24,8 @@ class RootStore {
         this.OtherStore = new OtherStore(props);
         this.ShouyiStore = new ShouyiStore(props);
         this.AiPanadaStore = new AiPanadaStore(props);
+        this.ChangeStore = new ChangeStore(props);
+        this.TurnOutStore = new TurnOutStore(props);
     }
 }
 

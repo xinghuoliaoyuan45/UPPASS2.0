@@ -4,7 +4,7 @@ import { getQuotation,getSession} from '../connect/request';
 import { get } from 'lodash';
 import 'url-search-params-polyfill';
 
-import {toastRequestError} from '../../shared';
+import {toastRequestError, load,TELPHONE} from '../../shared';
 export default class OtherStore extends BaseStore {
     @observable otherData = '';
     
@@ -19,9 +19,12 @@ export default class OtherStore extends BaseStore {
             successBack && successBack();
         })
     }
-    getOtherData = (successBack) =>{
+    getOtherData = async (successBack) =>{
         this.dataLoading();
-        getQuotation().then((res)=>{
+        const tel = await load(TELPHONE,'');
+        let param = new URLSearchParams()
+        param.append('tel',tel);
+        getQuotation(param).then((res)=>{
             let data=get(res,'data');
             let rspCode = get(data,'rspCode');
             if(rspCode === '000000'){

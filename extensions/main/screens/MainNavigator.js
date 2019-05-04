@@ -43,6 +43,7 @@ import ChangeScreen from './ChangeScreen';
 import ProfitScreen from './ProfitScreen';
 import PanadaTotalScreen from './PanadaTotalScreen';
 import AiPanadaScreen from './AiPanadaScreen';
+import HangqingScreen from './HangqingScreen';
 const HomeNavigator = createStackNavigator({
     SelectOther: SelectOtherScreen,
     Upload: UploadScreen,
@@ -82,7 +83,8 @@ const HomeNavigator = createStackNavigator({
     Change:ChangeScreen,
     Profit:ProfitScreen,
     PanadaTotal:PanadaTotalScreen,
-    AiPanada:AiPanadaScreen
+    AiPanada:AiPanadaScreen,
+    Hangqing:HangqingScreen
 }, {
         headerMode: 'none',
         mode: 'modal',

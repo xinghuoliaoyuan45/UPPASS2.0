@@ -4,7 +4,7 @@ import { openInvestment,getSession,getAiPanadaData } from '../connect/request';
 import { get } from 'lodash';
 import 'url-search-params-polyfill';
 
-import { load, USERJWTTOKEN, toastRequestError } from '../../shared';
+import { load, USERJWTTOKEN, toastRequestError, TELPHONE } from '../../shared';
 export default class AiPanadaStore extends BaseStore{
 
     @observable number = '';
@@ -31,10 +31,10 @@ export default class AiPanadaStore extends BaseStore{
         })
     }
 
-    openInvestment = (id,type,status,successBack) =>{
-     //  let id = await load(USERJWTTOKEN, '');
+    openInvestment = async (id,type,status,successBack) =>{
+       let tel = await load(TELPHONE, '');
         let param = new URLSearchParams()
-     //   param.append('userId', id);
+        param.append('tel', tel);
         param.append('number',this.number);
         param.append('paypassword',this.psd);
         param.append('status',status);
@@ -62,9 +62,13 @@ export default class AiPanadaStore extends BaseStore{
         })
     }
 
-    getAiPanadaData = (successBack) =>{
+    getAiPanadaData = async (successBack) =>{
+       
         this.dataLoading();
-        getAiPanadaData().then((res)=>{
+        const id = await load(USERJWTTOKEN,'');
+        let param = new URLSearchParams();
+        param.append('id',id);
+        getAiPanadaData(param).then((res)=>{
             const data = get(res,'data');
             let rspCode = get(data, 'rspCode');
             const array = get(data,'data',[]);

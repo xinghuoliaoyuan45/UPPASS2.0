@@ -79,3 +79,12 @@ export function openInvestment(params){
 export function getAiPanadaData(params){
     return Net('post',Api.QUERY_OPEN_STATE,params);
 }
+export function frbcChangeETH(params){
+    return Net('post',Api.FRBCEXCHANGEETH,params);
+}
+export function getChangeData(params){
+    return Net('post',Api.EXCHANGE,params);
+}
+export function turnOut(params){
+    return Net('post',Api.WITHDRAWAL,params);
+}

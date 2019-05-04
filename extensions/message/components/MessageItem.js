@@ -11,7 +11,6 @@ import {RkTheme} from 'react-native-ui-kitten';
 export default class MessageItem extends BaseScreen {
     render() {
         const {data} = this.props;
-        console.log('console log for chrom data', data);
         const title = get(data, 'item.title');
         return (
             <View style={{

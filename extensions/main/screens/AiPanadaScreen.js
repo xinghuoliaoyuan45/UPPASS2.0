@@ -22,9 +22,7 @@ export default class AiPanadaScreen extends BaseScreen {
         this.AiPanadaStore = AiPanadaStore;
     }
     mComponentDidMount = () => {
-        this.AiPanadaStore.getSession(() => {
-            this.AiPanadaStore.getAiPanadaData()
-        })
+        this.AiPanadaStore.getAiPanadaData();
     }
 
     onPress = (id,status,type) =>{
@@ -130,23 +128,39 @@ export default class AiPanadaScreen extends BaseScreen {
     }
     
     openConfirm = () => {
-        this.AiPanadaStore.getSession(() => {
-            this.AiPanadaStore.openInvestment(this.id,this.type,this.status,()=>{
-                for(let i = 0;i<this.AiPanadaStore.aiPanadaArray.length;i++){
-                    if(this.id === get(this.AiPanadaStore.aiPanadaArray[i],'id')){
-                        if(this.status === 0){
-                            this.AiPanadaStore.aiPanadaArray[i].status = 0;
-                        }else if(this.status === 1){
-                            if(this.AiPanadaStore.number === 0){
-                                console.log('console log for chrom 222',);
-                                this.AiPanadaStore.aiPanadaArray[i].status = 1;
-                            }
+        // this.AiPanadaStore.getSession(() => {
+        //     this.AiPanadaStore.openInvestment(this.id,this.type,this.status,()=>{
+        //         for(let i = 0;i<this.AiPanadaStore.aiPanadaArray.length;i++){
+        //             if(this.id === get(this.AiPanadaStore.aiPanadaArray[i],'id')){
+        //                 if(this.status === 0){
+        //                     this.AiPanadaStore.aiPanadaArray[i].status = 0;
+        //                 }else if(this.status === 1){
+        //                     if(this.AiPanadaStore.number === 0){
+        //                         console.log('console log for chrom 222',);
+        //                         this.AiPanadaStore.aiPanadaArray[i].status = 1;
+        //                     }
+        //                 }
+        //                 return;
+        //             }
+        //         }
+        //         this.AiPanadaStore.aiPanadaArray = this.AiPanadaStore.aiPanadaArray.slice();
+        //     })
+        // })
+        this.AiPanadaStore.openInvestment(this.id,this.type,this.status,()=>{
+            for(let i = 0;i<this.AiPanadaStore.aiPanadaArray.length;i++){
+                if(this.id === get(this.AiPanadaStore.aiPanadaArray[i],'id')){
+                    if(this.status === 0){
+                        this.AiPanadaStore.aiPanadaArray[i].status = 0;
+                    }else if(this.status === 1){
+                        if(this.AiPanadaStore.number === 0){
+                            console.log('console log for chrom 222',);
+                            this.AiPanadaStore.aiPanadaArray[i].status = 1;
                         }
-                        return;
                     }
+                    return;
                 }
-                this.AiPanadaStore.aiPanadaArray = this.AiPanadaStore.aiPanadaArray.slice();
-            })
+            }
+            this.AiPanadaStore.aiPanadaArray = this.AiPanadaStore.aiPanadaArray.slice();
         })
     }
     // chexiaoConfirm = () => {
