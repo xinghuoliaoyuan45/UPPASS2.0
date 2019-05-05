@@ -24,3 +24,7 @@ export const QUERY_OPEN_STATE = '/aipanda/query_open_state';
 export const FRBCEXCHANGEETH = '/FRBCexchangeETH';
 export const EXCHANGE = '/query/user/exchange';
 export const WITHDRAWAL = '/cash/withdrawal';
+export const QUERYUSERORDERAPPLE = '/queryUserOrderApple';
+export const PROFIT = '/query/profit';
+export const QRCODE = '/generate/qrcode';
+export const ANALYSIS_QRCODE = '/analysis/qrcode'

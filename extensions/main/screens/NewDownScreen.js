@@ -4,7 +4,8 @@ import {
     Keyboard,
     TouchableOpacity,
     View,
-    Text
+    Text,
+    Clipboard
 } from 'react-native';
 import { observer, inject } from 'mobx-react';
 import BaseScreen from '../../BaseScreen';
@@ -16,26 +17,30 @@ import ViewShot from "react-native-view-shot";
 import LinearGradient from 'react-native-linear-gradient';
 import { getWidth, getPixel, BaseHeader, getTitlePixel, load, USERJWTTOKEN } from '../../shared';
 import { observable } from 'mobx';
+import {get} from 'lodash';
 @inject('rootStore')
 @observer
-class DownScreen extends BaseScreen {
-
-    @observable id = null;
+class NewDownScreen extends BaseScreen {
 
     mComponentDidMount = async () => {
-        let id = await load(USERJWTTOKEN, '');
-        this.id = id;
+        const {state} = this.props.navigation;
+        const type = get(state,'params.type','');
+       this.UploadStore.getQrCode(type);
     }
 
     constructor(props) {
         super(props);
         const { UploadStore } = this.props.rootStore.mainStore;
         this.UploadStore = UploadStore;
-        console.log('console log for chrom this.UploadStore', this.UploadStore);
+    }
+    copyAddress = ()=>{
+        const address = this.UploadStore.qrCode;
+        Clipboard.setString(address);
+        this.showToast(ext('copySuccess'));
     }
 
     render() {
-        console.log('console log for chrom this.id',this.id);
+        console.log('console log for chrom codeAddress',this.UploadStore.qrCode);
         return (
             <TouchableOpacity onPress={() => { Keyboard.dismiss(); }} activeOpacity={1} style={{ flex: 1 }}>
                 <StatusBar barStyle='light-content' />
@@ -64,19 +69,26 @@ class DownScreen extends BaseScreen {
                                     fontWeight: '800',
                                     color: 'black'
                                 }}>{ext('saomazhuanru')}</Text>
-                                {this.id ? <QRCode
-                                    value={this.id + ''}
-                                    size={200}
-                                /> : null}
+                                 {
+                                 this.UploadStore.qrCode ?
+                                 <QRCode
+                                    value={this.UploadStore.qrCode}
+                                    size={200}/> :null }
                             </View>
                         </ViewShot>
                        
                     </View>
-
-                    <Text onPress={() => {
-                        this.showToast(ext('down_success'));
-                      
-                    }} style={{
+                    <Text style={{
+                         width: getWidth() - getPixel(25) * 2,
+                         height: getPixel(40),
+                         marginLeft: getPixel(25),
+                         color: 'white',
+                        textAlign: 'center',
+                        lineHeight: getPixel(40),
+                        fontSize: getPixel(15),
+                        marginTop: getPixel(20)
+                    }}>{this.UploadStore.qrCode}</Text>
+                    <Text onPress={this.copyAddress}style={{
                         width: getWidth() - getPixel(25) * 2,
                         marginLeft: getPixel(25),
                         height: getPixel(40),
@@ -85,7 +97,7 @@ class DownScreen extends BaseScreen {
                         textAlign: 'center',
                         lineHeight: getPixel(40),
                         fontSize: getPixel(15),
-                        marginTop: getPixel(40)
+                        marginTop: getPixel(20)
                     }}>{ext('cpoyAddress')}</Text>
                     <BaseHeader title={ext('in')} leftPress={this.goBack}
                         rightName={ext('inHistory')} rightPress={() => {
@@ -101,4 +113,4 @@ class DownScreen extends BaseScreen {
 //         backgroundColor: theme.colors.gradualStart
 //     }
 // }));
-export default DownScreen;
+export default NewDownScreen;

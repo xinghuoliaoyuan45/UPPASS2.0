@@ -9,8 +9,18 @@ import FastImage from 'react-native-fast-image';
 import BaseScreen from '../../BaseScreen';
 import { SafeAreaView } from 'react-navigation';
 import moment from 'moment';
-
+import { observer, inject } from 'mobx-react';
+@inject('rootStore')
+@observer
 export default class PanadaTotalScreen extends BaseScreen {
+    constructor(props) {
+        super(props);
+        const { ShouyiStore } = this.props.rootStore.mainStore;
+        this.ShouyiStore = ShouyiStore;
+    } 
+    componentDidMount = () =>{
+        this.ShouyiStore.produresUserList();
+     }
     renderHeader = () => {
         return (
             <View style={{
@@ -64,7 +74,9 @@ export default class PanadaTotalScreen extends BaseScreen {
     checkdata = (data) =>{
         if(data){
             data = data.toFixed(2);
-        }else{
+        }else if(data === 0){
+            data = 0;
+        } else{
             data = '';
         }
         return data;
@@ -125,7 +137,10 @@ export default class PanadaTotalScreen extends BaseScreen {
     render() {
         const {state} = this.props.navigation;
         const type = get(state,'params.type','');
-        const data = get(state,'params.data');
+        const allPandaCount = get(state,'params.allPandaCount','');
+        const price = get(state,'params.price','');
+        const sameDay = get(state,'params.sameDay','');
+        const allPartner = get(state,'params.allPartner','');
         return (
             <SafeAreaView style={{
                 flex: 1,
@@ -146,19 +161,19 @@ export default class PanadaTotalScreen extends BaseScreen {
                         fontSize: getPixel(14),
                         fontWeight: RkTheme.currentTheme.weight.Regular,
                         marginTop: getPixel(10)
-                    }}>{type==='panada'?ext('panada'):ext('commuintiesTotalProfit')}}</Text>
+                    }}>{type==='panada'?ext('panada'):ext('commuintiesTotalProfit')}</Text>
                     <Text style={{
                         color: 'white',
                         fontSize: getPixel(14),
                         fontWeight: RkTheme.currentTheme.weight.Regular,
                         marginTop: getPixel(14)
-                    }}>4</Text>
+                    }}>{allPandaCount}</Text>
                     <Text style={{
                         color: 'white',
                         fontSize: getPixel(14),
                         fontWeight: RkTheme.currentTheme.weight.Regular,
                         marginTop: getPixel(14)
-                    }}>{ext('FBCshishi')}</Text>
+                    }}>{ext('FBCshishi',{price})}</Text>
                     <View style={{
                         marginTop: getPixel(10),
                         flexDirection: 'row',
@@ -170,18 +185,17 @@ export default class PanadaTotalScreen extends BaseScreen {
                             fontSize: getPixel(14),
                             fontWeight: RkTheme.currentTheme.weight.Regular,
 
-                        }}>{ext('now')}</Text>
+                        }}>{ext('now',{sameDay})}</Text>
                         <Text style={{
                             color: '#F0895A',
                             fontSize: getPixel(14),
                             fontWeight: RkTheme.currentTheme.weight.Regular,
-                            marginTop: getPixel(10),
                             marginLeft: getPixel(12)
-                        }}>{ext('huoban')}
+                        }}>{ext('huoban',{allPartner})}
                         </Text>
                     </View>
                 </View>
-                <KBFlatList data={data}
+                <KBFlatList data={type === 'panada'?toJS(this.ShouyiStore.content):[]}
                     renderItem={this.renderItemFunc}
                     ListHeaderComponent={this.renderHeader} />
                 <BaseHeader title={ext('shouyi')} leftType='back'

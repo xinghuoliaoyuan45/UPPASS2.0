@@ -88,3 +88,15 @@ export function getChangeData(params){
 export function turnOut(params){
     return Net('post',Api.WITHDRAWAL,params);
 }
+export function getChargeDetail(params){
+    return Net('post',Api.QUERYUSERORDERAPPLE,params);
+}
+export function getProfitData(params){
+    return Net('post',Api.PROFIT,params);
+}
+export function getQrCode(params){
+    return Net('post',Api.QRCODE,params);
+}
+export function analysisQrcode(params){
+    return Net('post',Api.ANALYSIS_QRCODE,params);
+}

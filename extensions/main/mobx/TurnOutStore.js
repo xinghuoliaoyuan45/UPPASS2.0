@@ -3,7 +3,7 @@ import BaseStore from '../../mobx/BaseStore';
 import { turnOut } from '../connect/request';
 import { get } from 'lodash';
 import 'url-search-params-polyfill';
-
+import { ext } from '../const';
 import { load, USERJWTTOKEN, toastRequestError, TELPHONE } from '../../shared';
 export default class TurnOutStore extends BaseStore{
     @observable  number = '';
@@ -32,12 +32,14 @@ export default class TurnOutStore extends BaseStore{
         param.append('type',type);
         param.append('number',this.number);
         param.append('address',this.address);
-        param.append('password',this.psd);
+        param.append('paypassword',this.psd);
         param.append('tel',tel);
         turnOut(param).then((res)=>{
             let data=get(res,'data');
             let rspCode = get(data,'rspCode');
             if(rspCode === '000000'){
+                console.log('console log for chrom 1111',);
+                this.showToast(ext('turnOutSuccess'));
                 this.dataSuccess();
                 successBack && successBack();
             }else{

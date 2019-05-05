@@ -105,11 +105,11 @@ export default class TurnOutScreen extends BaseScreen {
                 }}>
                     <TextInput style={{ flex: 1 }}
                         placeholder={ext('address')} />
-                    <Text style={{
+                    {/* <Text style={{
                         color: 'rgb(203,201,200)',
                         fontSize: getPixel(12),
                         fontWeight: RkTheme.currentTheme.weight.Regular
-                    }}>{ext('addressGroup')}</Text>
+                    }}>{ext('addressGroup')}</Text> */}
                 </View>
                 <View style={{
                     width: getWidth(),

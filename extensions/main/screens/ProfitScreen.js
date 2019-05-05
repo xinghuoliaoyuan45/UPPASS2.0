@@ -18,9 +18,26 @@ export default class ProfitScreen extends BaseScreen {
         this.ShouyiStore = ShouyiStore;
     }   
     componentDidMount = () =>{
-        this.ShouyiStore.produresUserList();
-     }      
+     this.ShouyiStore.gtProfitData();
+       
+     } 
+     checkdata = (data,number) =>{
+        if(data){
+            data = data.toFixed(number);
+        }else if(data === 0){
+            data = 0;
+        } else{
+            data = null;
+        }
+        return data;
+    }     
     render() {
+        console.log('console log for chrom profitScreen',);
+        console.log('console log for chrom profitData',this.ShouyiStore.profitData);
+        const price = this.checkdata(get(this.ShouyiStore.profitData,'frbcPrice',null),2);
+        const sameDay = get(this.ShouyiStore.profitData,'sameDay','');
+        const allPartner = this.checkdata(get(this.ShouyiStore.profitData,'allPartner',null),2);
+        const allPandaCount = this.checkdata(get(this.ShouyiStore.profitData,'allPandaCount',null),8);
         return (
             <SafeAreaView style={{
                 flex: 1,
@@ -46,13 +63,13 @@ export default class ProfitScreen extends BaseScreen {
                         fontSize: getPixel(14),
                         fontWeight: RkTheme.currentTheme.weight.Regular,
                         marginTop: getPixel(14)
-                    }}>4</Text>
+                    }}>{this.checkdata(get(this.ShouyiStore.profitData,'allCount',''),8) }</Text>
                     <Text style={{
                         color: 'white',
                         fontSize: getPixel(14),
                         fontWeight: RkTheme.currentTheme.weight.Regular,
                         marginTop: getPixel(14)
-                    }}>{ext('FBCshishi')}</Text>
+                    }}>{ext('FBCshishi',{price})}</Text>
                     <View style={{
                         marginTop: getPixel(10),
                         flexDirection:'row',
@@ -64,14 +81,13 @@ export default class ProfitScreen extends BaseScreen {
                         fontSize: getPixel(14),
                         fontWeight: RkTheme.currentTheme.weight.Regular,
 
-                    }}>{ext('now')}</Text>
+                    }}>{ext('now',{sameDay})}</Text>
                     <Text style={{
                         color: '#F0895A',
                         fontSize: getPixel(14),
                         fontWeight: RkTheme.currentTheme.weight.Regular,
-                        marginTop: getPixel(10),
                         marginLeft: getPixel(12)
-                    }}>{ext('huoban')}
+                    }}>{ext('huoban',{allPartner})}
                     </Text>
                     </View>
                 </View>
@@ -88,7 +104,10 @@ export default class ProfitScreen extends BaseScreen {
                 }} activeOpacity={1} onPress={()=>{
                     this.toScreen('PanadaTotal',{
                         type:'panada',
-                        data:this.ShouyiStore.content
+                        allPandaCount:allPandaCount,
+                        price:price,
+                        sameDay:sameDay,
+                        allPartner:allPartner
                     })
                 }}>
                 <Text style={{
@@ -112,7 +131,11 @@ export default class ProfitScreen extends BaseScreen {
                     paddingHorizontal:getPixel(20)
                 }} activeOpacity={1} onPress={()=>{
                     this.toScreen('PanadaTotal',{
-                        type:'community'
+                        type:'community',
+                        allPandaCount:allPandaCount,
+                        price:price,
+                        sameDay:sameDay,
+                        allPartner:allPartner
                     })
                 }}>
                 <Text style={{

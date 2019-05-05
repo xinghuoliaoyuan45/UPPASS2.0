@@ -1,5 +1,5 @@
 import React, { Component } from 'react';
-import { View, Text, StyleSheet, TouchableOpacity } from 'react-native';
+import { View, Text, StyleSheet, TouchableOpacity,Clipboard } from 'react-native';
 import { getPixel, getWidth, Svgs, PullFlatList, getTitlePixel, BaseHeader, KBFlatList, getBottomPixel } from '../../shared';
 import { get } from 'lodash';
 import { toJS } from 'mobx';
@@ -8,30 +8,35 @@ import { RkTheme } from 'react-native-ui-kitten';
 import FastImage from 'react-native-fast-image';
 import BaseScreen from '../../BaseScreen';
 import {SafeAreaView} from 'react-navigation';
+import { observer, inject } from 'mobx-react';
+import moment from 'moment';
+@inject('rootStore')
+@observer
 export default class AssetConfirmScreen extends BaseScreen {
     constructor(props) {
         super(props);
-        //0 成功 1失败
-        this.data = [
-            {
-                number: '19284.009473626',
-                date: '2019-04-20  18:30:30',
-                liushui: 'FXxxcod45CKDOGdkdo702938DKFL',
-                status: 0
-            },
-            {
-                number: '19284.009473626',
-                date: '2019-04-20  18:30:30',
-                liushui: 'FXxxcod45CKDOGdkdo702938DKFL',
-                status: 0
-            }, {
-                number: '19284.009473626',
-                date: '2019-04-20  18:30:30',
-                liushui: 'FXxxcod45CKDOGdkdo702938DKFL',
-                status: 0
-            }
-        ]
+        const {OtherStore } = this.props.rootStore.mainStore;
+        this.OtherStore = OtherStore;
+        //status(提现状态 0 审核中 1 区块确认中 2 申请失败 3 申请成功 4 审核不通过 )
     }
+    mComponentDidMount = () =>{
+        const {state} = this.props.navigation;
+        const data = get(state,'params.data','');
+        this.OtherStore.getChargeDetail(get(data,'name',''));
+    }
+    getTime = (time) =>{
+        let momentTime= '';
+        momentTime = moment(time).format('YYYY-MM-DD HH:mm:ss');
+        return momentTime;
+    }
+    checkData = (data) =>{
+        if(data){
+            data = data.toFixed(8);
+        }
+        return data;
+
+    }
+  
     renderHeader = () => {
         const {state} = this.props.navigation;
         const data = get(state,'params.data','');
@@ -78,12 +83,22 @@ export default class AssetConfirmScreen extends BaseScreen {
             </View>
         )
     }
+    copyAction = (address) =>{
+        Clipboard.setString(address);
+       this.showToast(ext('copySuccess')); 
+    }
     renderItemFunc = (item) => {
         let statusText = '';
         if (get(item, 'item.status') === 0) {
-            statusText = ext('successful');
-        } else if (get(item, 'item.status') === 1) {
-            statusText = ext('filed');
+            statusText = ext('shenhezhong');
+        } else if (get(item, 'item.qvkuai') === 1) {
+            statusText = ext('qvkuai');
+        }else if(get(item,'item.status') === 2){
+            statusText = ext('failed')
+        }else if(get(item,'item.status') === 3){
+            statusText = ext('successful')
+        }else if(get(item,'item.status') === 4){
+            statusText = ext('reguest')
         }
         return (
             <View style={[{
@@ -103,7 +118,7 @@ export default class AssetConfirmScreen extends BaseScreen {
                         color: '#C61437',
                         fontSize: getPixel(12),
                         fontWeight: RkTheme.currentTheme.weight.Regular
-                    }}>{get(item, 'item.number', '')}</Text>
+                    }}>{this.checkData(get(item, 'item.number', null))}</Text>
                     <Text style={{
                         color: 'rgb(203,201,200)',
                         fontSize: getPixel(12),
@@ -115,7 +130,7 @@ export default class AssetConfirmScreen extends BaseScreen {
                     fontSize: getPixel(10),
                     fontWeight: RkTheme.currentTheme.weight.Regular,
                     marginTop: getPixel(7)
-                }}>{get(item, 'item.date', '')}</Text>
+                }}>{this.getTime(get(item, 'item.createTime', ''))}</Text>
                 <View style={{
                     width: getWidth() - getPixel(40),
                     flexDirection: 'row',
@@ -127,12 +142,14 @@ export default class AssetConfirmScreen extends BaseScreen {
                         fontSize: getPixel(10),
                         fontWeight: RkTheme.currentTheme.weight.Regular,
                         marginTop: getPixel(8)
-                    }}>{get(item, 'item.liushui', '')}</Text>
+                    }}>{get(item, 'item.address', '')}</Text>
                     <Text style={{
                         color: 'rgb(203,201,200)',
                         fontSize: getPixel(10),
                         fontWeight: RkTheme.currentTheme.weight.Regular
-                    }}>{ext('copy')}</Text>
+                    }} onPress={()=>{
+                        this.copyAction(get(item, 'item.address', ''))
+                        }}>{ext('copy')}</Text>
                 </View>
             </View>
         )
@@ -147,7 +164,7 @@ export default class AssetConfirmScreen extends BaseScreen {
                 backgroundColor: 'rgb(203,201,200)',
             }} forceInset={{top:'never',bottom:'always'}}> 
                 <KBFlatList
-                    data={this.data}
+                    data={toJS(this.OtherStore.chargeArray)}
                     renderItem={this.renderItemFunc}
                     ListHeaderComponent={this.renderHeader}
                 />
@@ -222,7 +239,9 @@ export default class AssetConfirmScreen extends BaseScreen {
                             justifyContent:'center',
                             backgroundColor:'#132141'
                         }} activeOpacity={1} 
-                        onPress={()=>{this.toScreen('Down')}}>
+                        onPress={()=>{this.toScreen('NewDown',{
+                            type:get(data,'name','')
+                        })}}>
                         <Text style={{
                             color: 'rgb(203,201,200)',
                             fontSize: getPixel(10),

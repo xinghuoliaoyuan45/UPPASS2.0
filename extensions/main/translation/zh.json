@@ -149,8 +149,6 @@
   "zichan":"资产",
   "share":"分享",
   "jiaoyisuo":"交易所",
-  "successful":"成功",
-  "filed":"失败",
   "copy":"复制",
   "chargeDetail":"交易及兑换明细",
   "out":"转出",
@@ -170,9 +168,9 @@
   "cpoyAddress":"复制地址",
   "saomazhuanru":"扫码转入",
   "totalProfit":"总收益",
-  "FBCshishi":"(FBC实时价格 $23.000)",
-  "now":"当日:0.302930000%",
-  "huoban":"(伙伴金额:0)",
+  "FBCshishi":"(FBC实时价格 ${{price}})",
+  "now":"当日:{{sameDay}}",
+  "huoban":"(伙伴金额:{{allPartner}})",
   "panadaToTalProfit":"熊猫投资总收益",
   "commuintiesTotalProfit":"社群总收益",
   "panada":"PANADA 总收益",
@@ -185,6 +183,13 @@
   "pleaseInputNumber":"请输入数量",
   "pleaseInputPsd":"请输入密码",
   "chexiao":"撤销AI熊猫投资",
-  "zongzichan":"总资产(USD)"
+  "zongzichan":"总资产(USD)",
+  "turnOutSuccess":"申请转出成功，请等待审核",
+  "shenhezhong":"审核中",
+  "qvkuai":"区块确认中",
+  "failed":"申请失败",
+  "successful":"申请成功",
+  "reguest":"审核不通过",
+  "copySuccess":"复制成功"
   
 }

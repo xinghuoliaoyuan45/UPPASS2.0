@@ -1,17 +1,18 @@
 
 import { observable, action } from 'mobx';
 import BaseStore from '../../mobx/BaseStore';
-import { getAccountInfo, sendMoney,checkMoney } from '../connect/request';
+import { getAccountInfo, sendMoney,checkMoney,getQrCode } from '../connect/request';
 import { get } from 'lodash';
 import 'url-search-params-polyfill';
 
-import { load, USERJWTTOKEN } from '../../shared';
+import { load, USERJWTTOKEN, TELPHONE } from '../../shared';
 import { ext } from '../const';
 export default class UploadStore extends BaseStore {
     @observable money = '';
     @observable account = '';
     @observable blance = '';
     @observable passWord = '';
+    @observable qrCode ='';
 
     @action
     changeAccount(account) {
@@ -69,6 +70,29 @@ export default class UploadStore extends BaseStore {
             if (rspCode === '000000') {
                 // this.userInfo = get(data, 'data');
                 this.showToast(ext('success'));
+                this.dataSuccess();
+            } else {
+                toastRequestError(data);
+                this.dataSuccess();
+            }
+            successBack&&successBack();
+        }).catch(()=>{
+            this.dataSuccess();
+        });
+    }
+
+
+    getQrCode = async (type,successBack) => {
+        this.dataLoading();
+        let tel = await load(TELPHONE, '')
+        let param = new URLSearchParams()
+        param.append('tel', tel)
+        param.append('type', type)
+        getQrCode(param).then((res) => {
+            let data = get(res, 'data');
+            let rspCode = get(data, 'rspCode');
+            if (rspCode === '000000') {
+                this.qrCode = get(data,'data','');
                 this.dataSuccess();
             } else {
                 toastRequestError(data);
