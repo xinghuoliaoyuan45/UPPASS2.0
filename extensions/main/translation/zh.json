@@ -190,6 +190,7 @@
   "failed":"申请失败",
   "successful":"申请成功",
   "reguest":"审核不通过",
-  "copySuccess":"复制成功"
+  "copySuccess":"复制成功",
+  "jump":"类型选择"
   
 }

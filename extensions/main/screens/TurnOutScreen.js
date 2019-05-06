@@ -69,7 +69,7 @@ export default class TurnOutScreen extends BaseScreen {
                 {this.renderHeader()}
                 <View style={{
                     width: getWidth(),
-                    height: getPixel(30),
+                    height: getPixel(40),
                     paddingHorizontal: getPixel(20),
                     marginTop: getPixel(11),
                     backgroundColor: 'white',
@@ -95,7 +95,7 @@ export default class TurnOutScreen extends BaseScreen {
                 </View>
                 <View style={{
                     width: getWidth(),
-                    height: getPixel(30),
+                    height: getPixel(40),
                     paddingHorizontal: getPixel(20),
                     marginTop: getPixel(11),
                     backgroundColor: 'white',
@@ -103,8 +103,12 @@ export default class TurnOutScreen extends BaseScreen {
                     alignItems: 'center',
                     justifyContent: 'space-between'
                 }}>
-                    <TextInput style={{ flex: 1 }}
-                        placeholder={ext('address')} />
+                    <TextInput
+                        placeholder={ext('address')} 
+                        value={this.TurnOutStore.address} 
+                        onChangeText={(text)=>{
+                            this.TurnOutStore.changeAddress(text)
+                        }}/>
                     {/* <Text style={{
                         color: 'rgb(203,201,200)',
                         fontSize: getPixel(12),
@@ -113,7 +117,7 @@ export default class TurnOutScreen extends BaseScreen {
                 </View>
                 <View style={{
                     width: getWidth(),
-                    height: getPixel(30),
+                    height: getPixel(40),
                     paddingHorizontal: getPixel(20),
                     marginTop: getPixel(11),
                     backgroundColor: 'white',
@@ -121,7 +125,7 @@ export default class TurnOutScreen extends BaseScreen {
                     alignItems: 'center',
                     justifyContent: 'space-between'
                 }}>
-                    <TextInput style={{ flex: 1 }}
+                    <TextInput 
                         placeholder={ext('number')}
                         onChangeText={(text) => {
                             this.TurnOutStore.changeNumber(text)
@@ -129,7 +133,7 @@ export default class TurnOutScreen extends BaseScreen {
                 </View>
                 <View style={{
                     width: getWidth(),
-                    height: getPixel(30),
+                    height: getPixel(40),
                     paddingHorizontal: getPixel(20),
                     marginTop: getPixel(11),
                     backgroundColor: 'white',
@@ -137,7 +141,7 @@ export default class TurnOutScreen extends BaseScreen {
                     alignItems: 'center',
                     justifyContent: 'space-between'
                 }}>
-                    <TextInput style={{ flex: 1 }}
+                    <TextInput 
                         placeholder={ext('transferPsd')}
                         secureTextEntry={true}
                         onChangeText={(text) => {

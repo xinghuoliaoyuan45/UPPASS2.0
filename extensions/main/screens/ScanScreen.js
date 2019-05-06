@@ -6,7 +6,8 @@ import {
     View,
     Text,
     Animated,
-    StyleSheet
+    StyleSheet,
+    Easing
 } from 'react-native';
 import { RNCamera } from 'react-native-camera';
 
@@ -25,14 +26,35 @@ class ScanScreen extends BaseScreen {
 
     constructor(props) {
         super(props);
-        const { UploadStore } = this.props.rootStore.mainStore;
+        const { UploadStore,TurnOutStore } = this.props.rootStore.mainStore;
         this.UploadStore = UploadStore;
+        this.TurnOutStore = TurnOutStore;
+        this.state = {
+            moveAnim: new Animated.Value(0)
+        };
         console.log('console log for chrom this.UploadStore', this.UploadStore);
     }
+    componentDidMount() {
+        this.startAnimation();
+    }
 
+    startAnimation = () => {
+        this.state.moveAnim.setValue(0);
+        Animated.timing(
+            this.state.moveAnim,
+            {
+                toValue: -200,
+                duration: 1500,
+                easing: Easing.linear
+            }
+        ).start(() => this.startAnimation());
+    };
     onBarCodeRead = (result) => {
+        console.log('console log for chrom 11111',);
         console.log('console log for chrom result', result);
-        this.toScreen('Upload', { id: result.data });
+        //this.toScreen('Upload', { id: result.data });
+       this.TurnOutStore.changeAddress(result.data)
+        this.toScreen('TurnOut')
     };
 
     render() {
@@ -49,6 +71,9 @@ class ScanScreen extends BaseScreen {
                 >
                     <View style={styles.rectangleContainer}>
                         <View style={styles.rectangle} />
+                        <Animated.View style={[
+                            styles.border,
+                            {transform: [{translateY: this.state.moveAnim}]}]}/>
                         <Text style={styles.rectangleText}>{ext('san_tips')}</Text>
                     </View>
                 </RNCamera>

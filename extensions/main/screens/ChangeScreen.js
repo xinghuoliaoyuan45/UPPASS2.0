@@ -160,7 +160,7 @@ export default class ChangeScreen extends BaseScreen {
                 {this.renderHeader()}
                 <View style={{
                     width: getWidth(),
-                    height: getPixel(30),
+                    height: getPixel(40),
                     paddingHorizontal: getPixel(20),
                     marginTop: getPixel(11),
                     backgroundColor: 'white',
@@ -168,7 +168,7 @@ export default class ChangeScreen extends BaseScreen {
                     alignItems: 'center',
                     justifyContent: 'space-between'
                 }}>
-                    <TextInput style={{ flex: 1 }}
+                    <TextInput 
                         placeholder={ext('inputNumber')}
                         onChangeText={(text) => {
                             this.ChangeStore.changeFrnbNumber(text);
@@ -176,7 +176,7 @@ export default class ChangeScreen extends BaseScreen {
                 </View>
                 <View style={{
                     width: getWidth(),
-                    height: getPixel(30),
+                    height: getPixel(40),
                     paddingHorizontal: getPixel(20),
                     marginTop: getPixel(11),
                     backgroundColor: 'white',
@@ -184,7 +184,7 @@ export default class ChangeScreen extends BaseScreen {
                     alignItems: 'center',
                     justifyContent: 'space-between'
                 }}>
-                    <TextInput style={{ flex: 1 }}
+                    <TextInput 
                         placeholder={ext('changeNumber', { type })} 
                         onChangeText={(text)=>{
                             this.ChangeStore.changeEthNUmber(text)
@@ -192,7 +192,7 @@ export default class ChangeScreen extends BaseScreen {
                 </View>
                 <View style={{
                     width: getWidth(),
-                    height: getPixel(30),
+                    height: getPixel(40),
                     paddingHorizontal: getPixel(20),
                     marginTop: getPixel(11),
                     backgroundColor: 'white',
@@ -200,7 +200,7 @@ export default class ChangeScreen extends BaseScreen {
                     alignItems: 'center',
                     justifyContent: 'space-between'
                 }}>
-                    <TextInput style={{ flex: 1 }}
+                    <TextInput 
                         placeholder={ext('changePsd')}
                         onChangeText={(text) => {
                             this.ChangeStore.changePsd(text)

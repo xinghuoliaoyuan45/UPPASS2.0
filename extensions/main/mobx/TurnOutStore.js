@@ -8,7 +8,8 @@ import { load, USERJWTTOKEN, toastRequestError, TELPHONE } from '../../shared';
 export default class TurnOutStore extends BaseStore{
     @observable  number = '';
     @observable psd = '';
-    @observable address = '2NC3wrmYksSRHobmXb6bBj8fAd3k1NsxkKD';
+   // @observable address = '2NC3wrmYksSRHobmXb6bBj8fAd3k1NsxkKD';
+   @observable address = '';
     @action
     changeNumber(number){
         if(number){

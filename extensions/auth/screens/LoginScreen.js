@@ -132,12 +132,12 @@ class LoginScreen extends BaseScreen {
                         alignItems: 'center'
                     }}>
                         <Image style={{
-                            width: getPixel(250),
+                            width: getPixel(150),
                             height: getPixel(80),
                             marginTop: getPixel(50),
                             resizeMode: 'stretch'
                         }}
-                            source={require('../assets/images/logo.png')}
+                            source={require('../assets/images/newLogo.png')}
                         />
                     </View>
                     <LoginInput placeholder={ext('plaseInputPhone')}

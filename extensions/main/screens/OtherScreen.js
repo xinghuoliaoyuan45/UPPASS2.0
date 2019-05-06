@@ -1,5 +1,5 @@
 import React from 'react';
-import { Platform, View, Text, TouchableOpacity, StatusBar, DeviceEventEmitter } from 'react-native';
+import { Platform, View, Text, TouchableOpacity, StatusBar, DeviceEventEmitter,ScrollView } from 'react-native';
 import { RkTheme } from 'react-native-ui-kitten';
 import BaseScreen from '../../BaseScreen';
 import { get } from 'lodash';
@@ -294,7 +294,7 @@ class OtherScreen extends BaseScreen {
                 style={{ flex: 1, backgroundColor: RkTheme.currentTheme.colors.gradualStart }} >
                 <StatusBar barStyle='light-content' />
 
-                <View style={{
+                <ScrollView style={{
                     flex: 1,
                     marginTop: getTitlePixel(40),
 
@@ -374,7 +374,7 @@ class OtherScreen extends BaseScreen {
                             {itemList}
                         </View>
                     </TouchableOpacity> : null}
-                </View>
+                </ScrollView>
                 <HomeHeader leftType='none' />
             </View>
         );
