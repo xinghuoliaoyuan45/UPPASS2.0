@@ -46,6 +46,7 @@ import AiPanadaScreen from './AiPanadaScreen';
 import HangqingScreen from './HangqingScreen';
 import NewDownScreen from './NewDownScreen';
 import ActionSelectedScreen from './ActionSelectedScreen';
+import NewAiPanadaScreen from './NewAiPanadaScreen';
 const HomeNavigator = createStackNavigator({
     SelectOther: SelectOtherScreen,
     Upload: UploadScreen,
@@ -88,7 +89,8 @@ const HomeNavigator = createStackNavigator({
     AiPanada:AiPanadaScreen,
     Hangqing:HangqingScreen,
     NewDown:NewDownScreen,
-    ActionSelected:ActionSelectedScreen
+    ActionSelected:ActionSelectedScreen,
+    NewAiPanada:NewAiPanadaScreen
 }, {
         headerMode: 'none',
         mode: 'modal',

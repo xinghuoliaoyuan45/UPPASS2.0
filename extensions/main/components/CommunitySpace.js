@@ -12,7 +12,7 @@ class CommunitySpace extends BaseScreen {
 
     renderItem = () => {
         let data = [
-            { name: ext('aiPanada'), image: 'icon_upload', screen: 'AiPanada' },
+            { name: ext('aiPanada'), image: 'icon_upload', screen: 'NewAiPanada' },
             { name: ext('shoukuan'), image: 'icon_down', screen: 'ActionSelected' },
             // { name: ext('checkoutcredit'), image: 'icon_qiehuan', screen: 'Checkout' },
             { name: ext('hangqing'), image: 'icon_shangxia', screen: 'Hangqing' },

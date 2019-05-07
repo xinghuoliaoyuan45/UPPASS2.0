@@ -1,6 +1,6 @@
 import { observable, action } from 'mobx';
 import BaseStore from '../../mobx/BaseStore';
-import { openInvestment,getSession,getAiPanadaData } from '../connect/request';
+import { openInvestment,getSession,getAiPanadaData,getNewAiPanadaData } from '../connect/request';
 import { get } from 'lodash';
 import 'url-search-params-polyfill';
 
@@ -10,6 +10,8 @@ export default class AiPanadaStore extends BaseStore{
     @observable number = '';
     @observable psd = '';
     @observable aiPanadaArray = [];
+    @observable newAipandaData = '';
+    @observable data = [];
     @action 
     changeNumber(number){
         this.number = number
@@ -18,6 +20,14 @@ export default class AiPanadaStore extends BaseStore{
      changePsd(psd){
          this.psd = psd;
      }
+
+    @action
+    clear(){
+        this.number = '';
+        this.psd = '';
+        this.aiPanadaArray = [];
+        this.newAipandaData = '';
+    }
    
     getSession = (successBack) =>{
         this.dataLoading();
@@ -63,7 +73,7 @@ export default class AiPanadaStore extends BaseStore{
     }
 
     getAiPanadaData = async (successBack) =>{
-       
+
         this.dataLoading();
         const id = await load(USERJWTTOKEN,'');
         let param = new URLSearchParams();
@@ -75,6 +85,26 @@ export default class AiPanadaStore extends BaseStore{
             if(array && Array.isArray(array)){
                 this.aiPanadaArray = array;
             }
+            if(rspCode === '000000'){
+                this.dataSuccess();
+                successBack && successBack();
+            }else{
+                toastRequestError(data);
+                this.dataSuccess();
+            }
+        }).catch(()=>{
+            successBack && successBack();
+        })
+    }
+
+    getNewAiPanadaData =async (successBack) =>{
+        this.dataLoading();
+        const tel = await load(TELPHONE,'');
+        let param = new URLSearchParams();
+        param.append('tel',tel);
+        getNewAiPanadaData(param).then((res)=>{
+            this.newAipandaData = get(res,'data');
+            let rspCode = get(data, 'rspCode');
             if(rspCode === '000000'){
                 this.dataSuccess();
                 successBack && successBack();

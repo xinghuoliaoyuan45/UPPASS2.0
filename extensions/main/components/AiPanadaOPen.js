@@ -24,19 +24,12 @@ export default class AiPanadaOPen extends BaseScreen {
     changeShow = (type,number) => {
         this.show = !this.show;
         this.type = type;
-        this.number = this.check(number);
+        this.number = number;
     }
     confirm = () =>{
         this.show = false;
         const {onPress} = this.props;
         onPress && onPress();
-    }
-    check = (number) =>{
-        let num = '';
-        if(number){
-            num = number.toFixed(8);
-        }
-        return num;
     }
     render() {
         //type 0开启 1关闭

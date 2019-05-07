@@ -179,7 +179,7 @@
   "date":"时间",
   "opened":"已开启",
   "closed":"未开启",
-  "openAiPanada":"开启Ai熊猫",
+  "openAiPanada":"投资Ai熊猫",
   "pleaseInputNumber":"请输入数量",
   "pleaseInputPsd":"请输入密码",
   "chexiao":"撤销AI熊猫投资",
@@ -191,6 +191,9 @@
   "successful":"申请成功",
   "reguest":"审核不通过",
   "copySuccess":"复制成功",
-  "jump":"类型选择"
+  "jump":"类型选择",
+  "xianhuo":"现货",
+  "chehui":"撤回",
+  "licai":"理财"
   
 }

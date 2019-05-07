@@ -13,7 +13,11 @@ export default class HangqingScreen extends BaseScreen {
                 flex: 1
             }}>
                 <WebView
-                    source={{ uri: 'https://coinmarketcap.com/' }} />
+                    source={{ uri: 'https://coinmarketcap.com/' }}
+                    scalesPageToFit={true}
+                    style={{
+                        flex:1
+                    }} />
                <BaseHeader leftType='close' leftPress={this.goBack}
                leftColor='black'/>
             </View>

@@ -144,10 +144,8 @@ class OtherScreen extends BaseScreen {
     checkdata = (data,number) =>{
         if(data){
             data = data.toFixed(number);
-        }else if(data === 0){
+        }else{
             data = 0;
-        } else{
-            data = null;
         }
         return data;
     }

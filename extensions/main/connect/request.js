@@ -100,3 +100,6 @@ export function getQrCode(params){
 export function analysisQrcode(params){
     return Net('post',Api.ANALYSIS_QRCODE,params);
 }
+export function getNewAiPanadaData(params){
+    return Net('post',Api.PANDAINFO,params);
+}

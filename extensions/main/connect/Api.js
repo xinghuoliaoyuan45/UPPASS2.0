@@ -27,4 +27,5 @@ export const WITHDRAWAL = '/cash/withdrawal';
 export const QUERYUSERORDERAPPLE = '/queryUserOrderApple';
 export const PROFIT = '/query/profit';
 export const QRCODE = '/generate/qrcode';
-export const ANALYSIS_QRCODE = '/analysis/qrcode'
+export const ANALYSIS_QRCODE = '/analysis/qrcode';
+export const PANDAINFO = '/query/aiPanda/info';
