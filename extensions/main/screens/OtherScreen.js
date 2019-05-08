@@ -1,5 +1,6 @@
 import React from 'react';
-import { Platform, View, Text, TouchableOpacity, StatusBar, DeviceEventEmitter,ScrollView } from 'react-native';
+import { Platform, View, Text, TouchableOpacity, StatusBar, 
+    DeviceEventEmitter,ScrollView } from 'react-native';
 import { RkTheme } from 'react-native-ui-kitten';
 import BaseScreen from '../../BaseScreen';
 import { get } from 'lodash';
@@ -325,6 +326,38 @@ class OtherScreen extends BaseScreen {
                             borderWidth:getPixel(5),
                             marginTop:getPixel(23)
                         }}>
+                        <View style={{
+                            position:'absolute',
+                           width:(getWidth()-getPixel(69))/3,
+                           height:getPixel(8),
+                           backgroundColor:RkTheme.currentTheme.colors.gradualStart,
+                           top:getPixel(-5),
+                           left:(getWidth()-getPixel(69))/3
+                        }} />
+                         <View style={{
+                            position:'absolute',
+                           width:(getWidth()-getPixel(69))/3,
+                           height:getPixel(8),
+                           backgroundColor:RkTheme.currentTheme.colors.gradualStart,
+                           bottom:getPixel(-5),
+                           left:(getWidth()-getPixel(69))/3
+                        }} />
+                        <View style={{
+                            position:'absolute',
+                           width:getPixel(8),
+                           height:getPixel(77)/3,
+                           backgroundColor:RkTheme.currentTheme.colors.gradualStart,
+                           bottom:getPixel(77)/3,
+                           left:getPixel(-5)
+                        }} />
+                        <View style={{
+                            position:'absolute',
+                           width:getPixel(8),
+                           height:getPixel(77)/3,
+                           backgroundColor:RkTheme.currentTheme.colors.gradualStart,
+                           bottom:getPixel(77)/3,
+                           right:getPixel(-5)
+                        }} />
                         <Text style={{
                             flex:1,
                             lineHeight:getPixel(38),

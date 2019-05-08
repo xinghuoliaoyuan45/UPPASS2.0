@@ -27,6 +27,7 @@ export default class AiPanadaStore extends BaseStore{
         this.psd = '';
         this.aiPanadaArray = [];
         this.newAipandaData = '';
+        this.data = [];
     }
    
     getSession = (successBack) =>{
@@ -49,20 +50,15 @@ export default class AiPanadaStore extends BaseStore{
         param.append('paypassword',this.psd);
         param.append('status',status);
         param.append('type',type);
-        status === 1 && param.append('id',id);
+       // status === 1 && param.append('id',id);
         this.dataLoading();
         openInvestment(param).then((res)=>{
             const data = get(res,'data');
             let rspCode = get(data, 'rspCode');
-            if(status === 1){
-                this.number = 0;
-            }
             if(rspCode === '200'){
-                console.log('console log for chrom code',);
                 this.dataSuccess();
                 successBack && successBack();
             }else{
-                console.log('console log for chrom oer',);
                 toastRequestError(data);
                 this.dataSuccess();
             }

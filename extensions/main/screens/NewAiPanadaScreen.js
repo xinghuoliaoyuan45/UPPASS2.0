@@ -26,7 +26,7 @@ export default class NewAiPanadaScreen extends BaseScreen {
         this.AiPanadaStore.getNewAiPanadaData(()=>{
             const aiETH = this.checkdata(get(this.AiPanadaStore.newAipandaData,'data.aiETH',null),8);
             const aiFRBC = this.checkdata(get(this.AiPanadaStore.newAipandaData,'data.aiFRBC',null),8);
-            const aiBTC = this.checkdata(get(this.AiPanadaStore.newAipandaData,'data.aiFRBC',null),8);
+            const aiBTC = this.checkdata(get(this.AiPanadaStore.newAipandaData,'data.aiBTC',null),8);
             const FRBCbalance = this.checkdata(get(this.AiPanadaStore.newAipandaData,'data.FRBCbalance',null),8);
             const ETHbalance = this.checkdata(get(this.AiPanadaStore.newAipandaData,'data.ETHbalance',null),8);
             const BTCbalance = this.checkdata(get(this.AiPanadaStore.newAipandaData,'data.BTCbalance',null),8);
@@ -177,7 +177,6 @@ export default class NewAiPanadaScreen extends BaseScreen {
         return data;
     }
     render() {
-       
         return (
             <SafeAreaView style={{
                 flex: 1,
@@ -202,16 +201,16 @@ export default class NewAiPanadaScreen extends BaseScreen {
             if(this.status === 0){
                 for(let i = 0;i<this.AiPanadaStore.data.length;i++){
                     if(this.id === get(this.AiPanadaStore.data[i],'id')){
-                        console.log('console log for chrom number',this.AiPanadaStore.number);
-                        this.AiPanadaStore.data[i].ai = parseFloat(this.AiPanadaStore.data[i].ai) + parseFloat(this.AiPanadaStore.number);
-                        this.AiPanadaStore.data[i].balance = parseFloat(this.AiPanadaStore.data[i].balance) - parseFloat(this.AiPanadaStore.number);
+                        this.AiPanadaStore.data[i].ai = this.checkdata(parseFloat(this.AiPanadaStore.data[i].ai) + parseFloat(this.AiPanadaStore.number),8);
+                        this.AiPanadaStore.data[i].balance = this.checkdata(parseFloat(this.AiPanadaStore.data[i].balance) - parseFloat(this.AiPanadaStore.number),8);
                     }
                 }
             }else{
                 for(let i = 0;i<this.AiPanadaStore.data.length;i++){
                     if(this.id === get(this.AiPanadaStore.data[i],'id')){
-                        this.AiPanadaStore.data[i].ai = this.AiPanadaStore.data[i].ai -this.AiPanadaStore.number;
-                        this.AiPanadaStore.data[i].balance = this.AiPanadaStore.data[i].balance + this.AiPanadaStore.number;
+                        this.AiPanadaStore.data[i].ai = this.checkdata(parseFloat(this.AiPanadaStore.data[i].ai) - parseFloat(this.AiPanadaStore.number),8);
+                        this.AiPanadaStore.data[i].balance = this.checkdata(parseFloat(this.AiPanadaStore.data[i].balance) + parseFloat(this.AiPanadaStore.number),8);
+                       
                     }
                 }
             }
