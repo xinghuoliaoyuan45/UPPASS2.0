@@ -155,22 +155,30 @@ class OtherScreen extends BaseScreen {
         let frbcMultiply = this.checkdata(get(this.OtherStore.otherData,'frbcMultiply',null),2);
         let ethMultiply = this.checkdata(get(this.OtherStore.otherData,'ethMultiply',null),2);
         let btcMultiply = this.checkdata(get(this.OtherStore.otherData,'btcMultiply',null),2);
-        let frbcPrice = this.checkdata(get(this.OtherStore.otherData,'frbcPrice',null),8);
-        let ethPrice = this.checkdata(get(this.OtherStore.otherData,'ethPprice',null),8);
-        let btcPrice = this.checkdata(get(this.OtherStore.otherData,'btcPrice',null),8);
+        let frbcPrice = this.checkdata(get(this.OtherStore.otherData,'frbcPrice',null),2);
+        let ethPrice = this.checkdata(get(this.OtherStore.otherData,'ethPprice',null),2);
+        let btcPrice = this.checkdata(get(this.OtherStore.otherData,'btcPrice',null),2);
+        let btcNumber = this.checkdata(get(this.OtherStore.otherData,'btcNumber',null),8);
+        let ethNumber = this.checkdata(get(this.OtherStore.otherData,'ethNumber',null),8);
+        let frbcNumber = this.checkdata(get(this.OtherStore.otherData,'frbcNumber',null),8);
         let otherData = [
             {
                 name:'FRBC',
-                price:frbcMultiply,
-                number:frbcPrice
+                price:frbcPrice,
+                number:frbcNumber,
+                mulity:frbcMultiply
             },{
                 name:'BTC',
-                price:btcMultiply,
-                number:btcPrice
+                price:btcPrice,
+                number:btcNumber,
+                mulity:btcMultiply
+
             },{
                 name:'ETH',
-                price:ethMultiply,
-                number:ethPrice
+                price:ethPrice,
+                number:ethNumber,
+                mulity:ethMultiply
+
             }
         ]
         console.log('console log for chrom otherData',toJS(otherData));
@@ -224,7 +232,7 @@ class OtherScreen extends BaseScreen {
                color:'#8F8F8D',
                fontSize:getPixel(10),
                fontWeight:RkTheme.currentTheme.weight.Regular
-           }}>{`= $${get(otherData[i],'price')*get(otherData[i],'number')}`}</Text>
+           }}>{`= $${get(otherData[i],'mulity')}`}</Text>
            </View>
            </TouchableOpacity>
            )
