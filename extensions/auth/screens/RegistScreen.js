@@ -23,7 +23,7 @@ import { observable } from 'mobx';
 @inject('rootStore')
 @observer
 class RegistScreen extends BaseScreen {
-
+    
     @observable showDialog = false;
     @observable phoneAdd = '+86';
     constructor(props) {
@@ -35,6 +35,7 @@ class RegistScreen extends BaseScreen {
         this.state = {
             show: false
         }
+        this.RegistStore.clear();
     }
     mComponentWillMount = () => {
         this.keyboardDidShowListener = Keyboard.addListener('keyboardWillShow', this._keyboardDidShow);

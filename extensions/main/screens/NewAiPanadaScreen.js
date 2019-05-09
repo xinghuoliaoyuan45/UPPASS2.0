@@ -67,7 +67,7 @@ export default class NewAiPanadaScreen extends BaseScreen {
                 borderRadius: getPixel(5)
             },item.index === 0 && {marginTop:getPixel(18)}]}>
                 <View style={{
-                    width: getWidth() / 3,
+                    width: getWidth() / 4,
                     alignItems: 'flex-start',
                     justifyContent: 'center',
                     height: getPixel(50),
@@ -95,7 +95,7 @@ export default class NewAiPanadaScreen extends BaseScreen {
                         color: 'white',
                         fontSize: getPixel(14),
                         fontWeight: RkTheme.currentTheme.weight.Regular,
-                        width:getPixel(50)
+                        width:getPixel(60)
                     }}>PANDA</Text>
                     <Text style={{
                         color: 'white',
@@ -114,7 +114,7 @@ export default class NewAiPanadaScreen extends BaseScreen {
                         color: 'white',
                         fontSize: getPixel(14),
                         fontWeight: RkTheme.currentTheme.weight.Regular,
-                        width:getPixel(50)
+                        width:getPixel(60)
                     }}>{ext('xianhuo')}</Text>
                     <Text style={{
                         color: 'white',

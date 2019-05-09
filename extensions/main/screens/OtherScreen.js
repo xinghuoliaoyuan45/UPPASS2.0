@@ -173,9 +173,9 @@ class OtherScreen extends BaseScreen {
                 number:ethPrice
             }
         ]
+        console.log('console log for chrom otherData',toJS(otherData));
         for(let i = 0;i<otherData.length;i++){
            array.push(
-            get(otherData[i],'price',null) && get(otherData[i],'number',null)?
             <TouchableOpacity style={[{
                 width:getWidth()-getPixel(69),
                 marginLeft:getPixel(36),
@@ -226,7 +226,7 @@ class OtherScreen extends BaseScreen {
                fontWeight:RkTheme.currentTheme.weight.Regular
            }}>{`= $${get(otherData[i],'price')*get(otherData[i],'number')}`}</Text>
            </View>
-           </TouchableOpacity>:<View/>
+           </TouchableOpacity>
            )
         }
         return array;

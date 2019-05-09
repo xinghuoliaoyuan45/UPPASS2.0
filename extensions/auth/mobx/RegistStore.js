@@ -20,6 +20,22 @@ export default class RegistStore extends BaseStore {
         localSmsCode: '',
         phoneAdd: '+86'
     };
+    @action
+    clear(){
+        this.data={
+            phone: '',
+            smsCode: '',
+            keyBoardHeight: 0,
+            registType: '',
+            payPassword: '',
+            password: '',
+            name: '',
+            invitationCode: '',
+            xieyi: true,
+            localSmsCode: '',
+            phoneAdd: '+86'
+        }
+    }
 
     @action
     changePhoneAdd(phoneAdd) {
@@ -28,7 +44,7 @@ export default class RegistStore extends BaseStore {
 
     @action
     changeInvitationCode(InvitationCode) {
-        this.data.InvitationCode = InvitationCode;
+        this.data.invitationCode = InvitationCode;
     }
 
     @action
@@ -130,10 +146,6 @@ export default class RegistStore extends BaseStore {
             this.showToast(ext('phoneError'));
             return false;
         }
-        if (this.data.phone.length < 11) {
-            this.showToast(ext('phoneError'));
-            return false;
-        }
         // if (this.data.smsCode.length === 0) {
         //     this.showToast(ext('plaseInputCode'));
         //     return false;
@@ -146,7 +158,7 @@ export default class RegistStore extends BaseStore {
             this.showToast(ext('payPasswordError'));
             return false;
         }
-        if (this.data.InvitationCode.length <= 0) {
+        if (this.data.invitationCode.length <= 0) {
             this.showToast(ext('plaseInputInvitationCode'));
             return false;
         }
