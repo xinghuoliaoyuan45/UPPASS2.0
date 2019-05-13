@@ -14,7 +14,7 @@ export default class HangqingScreen extends BaseScreen {
                 backgroundColor:'white'
             }}>
                 <WebView
-                    source={{ uri: 'https://m.feixiaohao.com/' }}
+                    source={{ uri: 'http://m.mytoken.io' }}
                     scalesPageToFit={true}
                     style={{
                         flex:1,
