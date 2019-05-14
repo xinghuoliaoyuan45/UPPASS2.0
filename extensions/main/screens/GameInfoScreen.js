@@ -51,7 +51,7 @@ class GameInfoScreen extends BaseScreen {
             if (ids) {
                 console.log('console log for chrom 1111');
                 let list = toJS(this.GameStore.data);
-                for (let i = 0; i > list.length; i++) {
+                for (let i = 0; i < list.length; i++) {
                     if (list[i].instance.id === ids) {
                         this.item = list[i];
                     }
