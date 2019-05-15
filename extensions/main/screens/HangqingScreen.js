@@ -1,12 +1,43 @@
 import React, { Component } from 'react';
-import { View, WebView } from 'react-native';
+import { View, WebView,Platform } from 'react-native';
 import { getPixel, getWidth, Svgs, getTitlePixel, BaseHeader, getBottomPixel } from '../../shared';
 import { get } from 'lodash';
-import { toJS } from 'mobx';
 import { ext } from '../const';
 import { RkTheme } from 'react-native-ui-kitten';
 import BaseScreen from '../../BaseScreen';
+import { observer, inject } from 'mobx-react';
+import { observable, toJS } from 'mobx';
+@inject('rootStore')
+@observer
 export default class HangqingScreen extends BaseScreen {
+    @observable isBack = false;
+    constructor(props){
+        super(props);
+        this.addBackAndroidListener(this.props.navigator);
+    }
+    _onNavigationStateChange = (navState)=>{
+        console.log('console log for chrom navState',navState);
+       // console.log('console log for chrom navState.canGoBack====',navState.canGoBack);
+      if(navState.canGoBack){
+          this.isBack = true;
+      }else{
+          this.isBack = false;
+      }
+    }
+    addBackAndroidListener(navigator) {
+        if (Platform.OS === 'android') {
+            BackAndroid.addEventListener('hardwareBackPress', this.onBackAndroid);
+        }
+    }
+    onBackAndroid = ()=> {
+        if (this.isBack) {
+            this.refs.webView.goBack();
+            return true;
+        } else {
+            this.goBack();
+            return false;
+        }
+    };
     render() {
         return (
             <View style={{
@@ -20,8 +51,10 @@ export default class HangqingScreen extends BaseScreen {
                         flex:1,
                         marginTop:getTitlePixel(64),
                         marginBottom:getBottomPixel(5)
-                    }} />
-               <BaseHeader leftType='close' leftPress={this.goBack}
+                    }}
+                    onNavigationStateChange={this._onNavigationStateChange}
+                    ref='webView' />
+               <BaseHeader leftType='close' leftPress={this.onBackAndroid}
                leftColor='black'/>
             </View>
         )

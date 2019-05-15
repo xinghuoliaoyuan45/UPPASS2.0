@@ -47,11 +47,10 @@ export default class AssetConfirmScreen extends BaseScreen {
                 <View style={{
                     width: getWidth(),
                     paddingHorizontal: getPixel(20),
-                    paddingVertical: getPixel(15),
                     backgroundColor: '#132141',
                     marginTop: getPixel(7),
                     borderRadius: getPixel(5),
-                    height: getPixel(61)
+                    paddingTop:getPixel(15)
                 }}>
                     <Text style={{
                         color: 'rgb(203,201,200)',
@@ -62,7 +61,8 @@ export default class AssetConfirmScreen extends BaseScreen {
                         color: 'rgb(203,201,200)',
                         fontSize: getPixel(14),
                         marginTop: getPixel(9),
-                        fontWeight: RkTheme.currentTheme.weight.Regular
+                        fontWeight: RkTheme.currentTheme.weight.Regular,
+                        marginBottom:getPixel(15)
                     }}>{`= $${get(data,'price')*get(data,'number')}`}</Text>
 
                 </View>
