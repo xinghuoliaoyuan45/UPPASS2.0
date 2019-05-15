@@ -123,7 +123,7 @@ export default class RegistStore extends BaseStore {
             let rspCode = get(data, 'rspCode');
             if (rspCode === '000000') {
                 save(USERJWTTOKEN, get(data, 'data.user_id', ''));
-                save(NEWTOKEN,get(data,'data.app_token',''));
+                save(NEWTOKEN,get(data,'data.app-token',''));
                 successBack && successBack();
             } else {
                 toastRequestError(data);

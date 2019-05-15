@@ -86,7 +86,7 @@ export default class LoginStore extends BaseStore {
                 save(USERINFO, get(data, 'data', ''));
                 save(USERJWTTOKEN, get(data, 'data.id', ''));
                 save(TELPHONE,get(data,'data.tel',''));
-                save(NEWTOKEN,get(data,'data.app_token'));
+                save(NEWTOKEN,get(data,'data.app-token'));
                 successBack && successBack();
             } else {
                 toastRequestError(data);

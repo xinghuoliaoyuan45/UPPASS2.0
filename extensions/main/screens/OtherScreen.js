@@ -250,7 +250,7 @@ class OtherScreen extends BaseScreen {
         ext('Becareful'),
         // ext('setting'),
         ext('logout')];
-        let allMoney = get(this.OtherStore.otherData,'allMoney',null);
+        let allMoney = get(this.OtherStore.otherData,'allMoney',0);
         if(allMoney){
             allMoney = allMoney.toFixed(2);
         }
