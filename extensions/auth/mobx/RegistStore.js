@@ -5,7 +5,7 @@ import { ext } from '../const';
 import { get } from 'lodash';
 import 'url-search-params-polyfill';
 
-import { save, USERINFO, USERJWTTOKEN, MEMERSPACES, SPACES, toastRequestError } from '../../shared';
+import { save, USERINFO, USERJWTTOKEN, MEMERSPACES, SPACES, toastRequestError, NEWTOKEN } from '../../shared';
 export default class RegistStore extends BaseStore {
     @observable data = {
         phone: '',
@@ -123,6 +123,7 @@ export default class RegistStore extends BaseStore {
             let rspCode = get(data, 'rspCode');
             if (rspCode === '000000') {
                 save(USERJWTTOKEN, get(data, 'data.user_id', ''));
+                save(NEWTOKEN,get(data,'data.app_token',''));
                 successBack && successBack();
             } else {
                 toastRequestError(data);

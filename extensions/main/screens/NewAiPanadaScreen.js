@@ -199,6 +199,7 @@ export default class NewAiPanadaScreen extends BaseScreen {
     openConfirm = () => {
         this.AiPanadaStore.openInvestment(this.id,this.type,this.status,()=>{
             if(this.status === 0){
+                console.log('console log for chrom this.id',this.id);
                 for(let i = 0;i<this.AiPanadaStore.data.length;i++){
                     if(this.id === get(this.AiPanadaStore.data[i],'id')){
                         this.AiPanadaStore.data[i].ai = this.checkdata(parseFloat(this.AiPanadaStore.data[i].ai) + parseFloat(this.AiPanadaStore.number),8);

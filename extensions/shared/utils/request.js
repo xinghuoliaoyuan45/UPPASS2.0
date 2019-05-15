@@ -1,6 +1,6 @@
 import axios from 'axios';
 import config from 'react-native-config';
-import { load, USERJWTTOKEN } from '../../shared';
+import { load, USERJWTTOKEN,NEWTOKEN } from '../../shared';
 const { apiBaseUrl } = config;
 import { toastRequestError } from './toast';
 import { LANGUAGE } from './storageKey';
@@ -8,6 +8,7 @@ import { LANGUAGE } from './storageKey';
 const instance = axios.create({
     baseURL: 'http://47.75.98.154:3009/',
     timeout: 20000,
+    headers: {Accept: 'application/json'},
 });
 
 instance.interceptors.request.use((configData) => {
@@ -29,10 +30,15 @@ instance.interceptors.response.use((response) => {
     return Promise.reject(error.response);
 });
 // 
+export const clearHeader = () => {
+    axios.defaults.headers.common['app-token'] = '';
+    axios.defaults.headers.common['X-space-id'] = '';
+};
 export const Net = async (type, api, params) => {
-    const token = await load(USERJWTTOKEN);
+    const token = await load(NEWTOKEN);
+    console.log('console log for chrom token---------',token);
     if (token) {
-        axios.defaults.headers.common.Authorization = token;
+        axios.defaults.headers.common['app-token'] = token;
         axios.defaults.headers.common['X-space-id'] = '364';
     }
     const language = await load(LANGUAGE, 'zh');

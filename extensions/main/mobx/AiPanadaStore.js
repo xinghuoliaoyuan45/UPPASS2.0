@@ -55,7 +55,7 @@ export default class AiPanadaStore extends BaseStore{
         openInvestment(param).then((res)=>{
             const data = get(res,'data');
             let rspCode = get(data, 'rspCode');
-            if(rspCode === '200'){
+            if(rspCode === '000000'){
                 this.dataSuccess();
                 successBack && successBack();
             }else{

@@ -1,8 +1,8 @@
 import { observable, action } from 'mobx';
 import { get } from 'lodash';
 import BaseStore from '../../mobx/BaseStore';
-import { save, USERINFO, USERJWTTOKEN, MEMERSPACES, SPACES,toastRequestError,TELPHONE } from '../../shared';
-import { getSmsCode, toLogin, forgetPwd, login,getSession } from '../connect/request';
+import { save, USERINFO, USERJWTTOKEN, MEMERSPACES, SPACES,toastRequestError,TELPHONE,NEWTOKEN } from '../../shared';
+import { getSmsCode, toLogin, forgetPwd, login, } from '../connect/request';
 import { ext } from '../const';
 import 'url-search-params-polyfill';
 export default class LoginStore extends BaseStore {
@@ -86,6 +86,7 @@ export default class LoginStore extends BaseStore {
                 save(USERINFO, get(data, 'data', ''));
                 save(USERJWTTOKEN, get(data, 'data.id', ''));
                 save(TELPHONE,get(data,'data.tel',''));
+                save(NEWTOKEN,get(data,'data.app_token'));
                 successBack && successBack();
             } else {
                 toastRequestError(data);

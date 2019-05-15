@@ -6,12 +6,13 @@ import {
 } from 'react-native';
 import {SafeAreaView} from 'react-navigation';
 import BaseScreen from '../../BaseScreen';
-import {load, USERJWTTOKEN, DefaultTheme, LANGUAGE, initI18nLocale} from '../../shared';
+import {load, USERJWTTOKEN, DefaultTheme, LANGUAGE, initI18nLocale, NEWTOKEN} from '../../shared';
 import {RkTheme} from 'react-native-ui-kitten';
 class SplashScreen extends BaseScreen {
     mComponentDidMount = async () => {
         RkTheme.setTheme(DefaultTheme);
-        const token = await load(USERJWTTOKEN, '');
+    //   const token = await load(USERJWTTOKEN, '');
+        const token = await load(NEWTOKEN,'');
         const language = await load(LANGUAGE, 'zh');
         initI18nLocale(language);
         if (token) {
