@@ -1,5 +1,5 @@
 import React, { Component } from 'react';
-import { View, WebView,Platform } from 'react-native';
+import { View, WebView,Platform,BackAndroid,BackHandler } from 'react-native';
 import { getPixel, getWidth, Svgs, getTitlePixel, BaseHeader, getBottomPixel } from '../../shared';
 import { get } from 'lodash';
 import { ext } from '../const';
@@ -13,26 +13,32 @@ export default class HangqingScreen extends BaseScreen {
     @observable isBack = false;
     constructor(props){
         super(props);
-        this.addBackAndroidListener(this.props.navigator);
+       
     }
     _onNavigationStateChange = (navState)=>{
-        console.log('console log for chrom navState',navState);
-       // console.log('console log for chrom navState.canGoBack====',navState.canGoBack);
+        console.log('console log for chrom navState-------',navState);
+       console.log('console log for chrom navState.canGoBack====',navState.canGoBack);
       if(navState.canGoBack){
           this.isBack = true;
       }else{
           this.isBack = false;
       }
     }
-    addBackAndroidListener(navigator) {
+    componentWillUnmount(){
         if (Platform.OS === 'android') {
-            BackAndroid.addEventListener('hardwareBackPress', this.onBackAndroid);
+            BackHandler.removeEventListener('hardwareBackPress', this.onBackAndroid);
+        }
+   }
+    mComponentDidMount = () =>{
+        if (Platform.OS === 'android') {
+            BackHandler.addEventListener('hardwareBackPress', this.onBackAndroid);
         }
     }
+
     onBackAndroid = ()=> {
         if (this.isBack) {
             this.refs.webView.goBack();
-            return true;
+           return true;
         } else {
             this.goBack();
             return false;
