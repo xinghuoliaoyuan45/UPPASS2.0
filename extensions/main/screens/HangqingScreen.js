@@ -41,7 +41,7 @@ export default class HangqingScreen extends BaseScreen {
            return true;
         } else {
             this.goBack();
-            return false;
+            return true;
         }
     };
     render() {
