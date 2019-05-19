@@ -23,7 +23,6 @@ import com.facebook.react.ReactNativeHost;
 import com.facebook.react.ReactPackage;
 import com.facebook.react.shell.MainReactPackage;
 import com.facebook.soloader.SoLoader;
-
 import java.util.Arrays;
 import java.util.List;
 
@@ -39,6 +38,7 @@ public class MainApplication extends MultiDexApplication implements ReactApplica
     protected List<ReactPackage> getPackages() {
       return Arrays.<ReactPackage>asList(
           new MainReactPackage(),
+          //  new RNCWebViewPackage(),
             new RNViewShotPackage(),
             new JPushPackage(true, false),
             new ReactVideoPackage(),
@@ -53,7 +53,8 @@ public class MainApplication extends MultiDexApplication implements ReactApplica
             new LinearGradientPackage(),
             new RNI18nPackage(),
             new ReactNativeConfigPackage(),
-            new LottiePackage()
+            new LottiePackage(),
+            new ReactWebViewPackage()    //WebView
       );
     }
 
@@ -73,4 +74,5 @@ public class MainApplication extends MultiDexApplication implements ReactApplica
     super.onCreate();
     SoLoader.init(this, /* native exopackage */ false);
   }
+
 }

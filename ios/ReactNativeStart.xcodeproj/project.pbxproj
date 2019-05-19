@@ -699,9 +699,9 @@
 				00C302EA1ABCBA2D00DB3ED1 /* libRCTVibration.a in Frameworks */,
 				139FDEF61B0652A700C62182 /* libRCTWebSocket.a in Frameworks */,
 				74585AAB7C00494F9E5E0611 /* libLottie.a in Frameworks */,
-				1CB0959010FA4A19AD71839E /* libLottieReactNative.a in Frameworks */,
 				339AFF4502A343DCB0F1D9BB /* libReactNativeConfig.a in Frameworks */,
 				E3BFD2DCA4A5457CA1AE559D /* libRNI18n.a in Frameworks */,
+				1CB0959010FA4A19AD71839E /* libLottieReactNative.a in Frameworks */,
 				56FB39DC21FABFB700C1360E /* libiZHC_MoProtocol.a in Frameworks */,
 				56FB39DF21FABFB700C1360E /* RfmAccessControl.framework in Frameworks */,
 				BE91EE79053B453CA5E7ED25 /* libBVLinearGradient.a in Frameworks */,
@@ -2261,6 +2261,7 @@
 					"$(inherited)",
 					"$(PROJECT_DIR)/DoorAccess/Thirdlibs/LingLingAccess",
 					"$(PROJECT_DIR)/DoorAccess/Thirdlibs/DHble",
+					"$(PROJECT_DIR)",
 				);
 				OTHER_LDFLAGS = (
 					"$(inherited)",
@@ -2316,6 +2317,7 @@
 					"$(inherited)",
 					"$(PROJECT_DIR)/DoorAccess/Thirdlibs/LingLingAccess",
 					"$(PROJECT_DIR)/DoorAccess/Thirdlibs/DHble",
+					"$(PROJECT_DIR)",
 				);
 				ONLY_ACTIVE_ARCH = YES;
 				OTHER_LDFLAGS = (

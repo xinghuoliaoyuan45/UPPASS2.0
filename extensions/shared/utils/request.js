@@ -6,7 +6,7 @@ import { toastRequestError } from './toast';
 import { LANGUAGE } from './storageKey';
 
 const instance = axios.create({
-    baseURL: 'http://47.75.98.154:3009/',
+    baseURL: 'http://54.255.204.122:8000',
     timeout: 20000,
     headers: {Accept: 'application/json'},
 });
